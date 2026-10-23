@@ -75,7 +75,7 @@ ol,ul{margin:6px 0;padding-left:22px;font-size:14.5px;color:#3c4956;line-height:
 <section class="section"><div class="head"><span class="no">02</span><h2>测法（可照抄）</h2><div class="rule"></div></div>
 <div class="panel"><ol>
 <li>采样参数<b>一律取官方 model card</b>：temperature=1.0、top_p=1.0、reasoning_effort=high（官方 encoding 文档：effort 为 1–100 数值预算，low=50 / high=75 / max=100）。</li>
-<li>两端同 system prompt、同 max_tokens、同题目文本；本地经 SSH 隧道 <code>127.0.0.1:18181→Roy:8081</code> 直连，不经过任何网关改写。</li>
+<li>两端同 system prompt、同 max_tokens、同题目文本；本地端通过隔离的本地代理直连模型服务，不经过网关改写。</li>
 <li>判分<b>全部可执行</b>：代码题 extract 代码块 → exec → 跑预置用例（含负数/空输入/边界）按通过数计分；数学用数值比对；JSON 严格校验键集合与类型；中文按句数/字数/禁用词计数。判分器先用伪造答案自测 13 项通过后才开跑。</li>
 <li>两道口径并列公布：<b>temperature=0（非官方）</b>与 <b>官方参数</b>。前者是本轮最初误用的设置，保留用于说明差异来源。</li>
 <li>长文取针用自造文档（无意义英文日志 + 三条 RETENTION RECORD 埋在 10%/50%/90% 位置），三针必须同时取出才算通过。</li>
@@ -168,7 +168,7 @@ ol,ul{margin:6px 0;padding-left:22px;font-size:14.5px;color:#3c4956;line-height:
 <footer class="footer"><div class="frow">
 <div><h4>原始数据</h4><p>三次跑测的全部原始响应（raw JSON，含 reasoning_content 与 finish_reason）、逐题判分、退化对照、视觉与取针回执均在项目 evidence 目录，海报每个数字由单一聚合脚本 <code>poster_data.py</code> 产出，非手抄。</p></div>
 <div><h4>负载构造</h4><p>24 题自拟（数学/代码/中文/长文/指令）；死循环对照组固定同一难题 ×6；取针=自造英文日志 + 三条 RETENTION RECORD；视觉=程序化生成的报表图。</p></div>
-<div><h4>复现</h4><p>本地：<code>ssh -L 18181:127.0.0.1:8081</code> 后调 <code>/v1/chat/completions</code><br>官方：<code>api.deepseek.com/v1</code>，model=<code>deepseek-flash</code><br>参数：temperature 1.0 / top_p 1.0 / reasoning_effort high</p></div>
+<div><h4>复现</h4><p>本地与官方均使用兼容的 chat completions 接口；官方模型名为 <code>deepseek-flash</code>。<br>参数：temperature 1.0 / top_p 1.0 / reasoning_effort high</p></div>
 </div>
 <div class="fbig">单位：token 为 API usage 口径，tok/s 为 prompt_token÷墙钟（含少量生成时间，仅量级参考）· 日期 2026-10-22 · 无凭据/无隐私内容 · 本地引擎 maya 1.1.20 · 结论门槛：能力题以逐题判分比对，退化以 finish=length 且正文空判定 · 全部实测，未用推算补数。</div>
 </footer>
