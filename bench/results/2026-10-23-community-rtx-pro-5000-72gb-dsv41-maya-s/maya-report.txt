@@ -1,0 +1,18 @@
+## Maya
+version 1.1.20, commit 35bb2b2, Linux, CUDA 13.0
+
+## System
+Ubuntu 24.04; x86_64; Ryzen 9 9950X3D; 249 GB DDR5-6000
+
+## GPUs
+2 x NVIDIA RTX PRO 5000, 72 GB each, Blackwell / SM120
+
+## Model and setup
+DeepSeek-V4.1-Flash-1017 Maya-S mixed IQ2_XXS/IQ2_S/IQ3_S, measured 2.56 bpw.
+512K context; DSpark enabled; temperature=1.0, top_p=1.0, reasoning_effort=high.
+The engine layer-splits across both GPUs; requested TP2 falls back to TP1 for the packed expert layout.
+
+## Speed and residency
+512K calibration: DSpark on 71.03 tok/s; DSpark off 46.03 tok/s; 573/855 draft tokens accepted (67%).
+512K engine samples: 21,457-token prompt 1,373 tok/s prefill / 75.5 tok/s decode; 127,057-token prompt 1,755 / 87.3; 431,057-token prompt 1,626 / 88.6.
+At 512K, model experts occupied approximately 77.4% of expert slots in VRAM in the recorded launch banner; about 3,850 experts used the CPU lane. Exact launch-time memory readings are omitted from this sanitized attachment.

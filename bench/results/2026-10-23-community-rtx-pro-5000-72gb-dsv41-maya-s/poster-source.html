@@ -1,0 +1,175 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><title>Maya-S(IQ2) vs 官方 API · 同题 A/B</title>
+<style>*{box-sizing:border-box}html,body{margin:0;background:#eef1f4;color:#17202b}
+body{width:1560px;margin:0 auto;font-family:"PingFang SC","Noto Sans SC","Source Han Sans SC","Helvetica Neue",Arial,sans-serif;font-variant-numeric:tabular-nums;-webkit-font-smoothing:antialiased}
+.wrap{padding:50px 62px 44px}
+.hero{background:#172331;color:#fff;padding:46px 62px 40px}
+.eyebrow{font-size:15px;letter-spacing:.14em;color:#8fd3c4;font-weight:700}.eyebrow i{display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a98b;margin-right:9px}
+.title{font-size:42px;font-weight:850;margin:14px 0 6px;line-height:1.24}
+.subtitle{font-size:18px;color:#b9c7d4;line-height:1.55}
+.flag{margin-top:16px;display:inline-block;background:#25384a;border:1px solid #3a5570;color:#cfe3f0;font-size:14px;padding:7px 14px;border-radius:9px}
+.summary{display:grid;grid-template-columns:1.12fr 1fr 1fr;gap:16px;margin-top:26px}
+.metric{background:#fff;border:1px solid #dfe5eb;border-radius:14px;padding:24px 27px}
+.metric.primary{background:#eaf8f4;border-color:#bde7da}
+.metric.warn{background:#fff7ed;border-color:#f0d4b4}
+.metric .label{font-size:14.5px;letter-spacing:.06em;color:#5b6472;font-weight:700}
+.metric .num{font-size:42px;font-weight:850;margin:7px 0 4px;line-height:1.15}.metric .num small{font-size:17px;font-weight:650;color:#5b6472}
+.metric p{font-size:13.5px;color:#748192;line-height:1.6;margin:6px 0 0}
+.section{margin-top:32px}.head{display:flex;align-items:center;gap:14px;margin-bottom:14px}
+.no{font-size:16px;color:#17826d;font-weight:850;letter-spacing:.1em}.head h2{font-size:26px;margin:0;font-weight:800}
+.rule{height:1px;background:#d7dee5;flex:1}
+.panel{background:#fff;border:1px solid #dfe5eb;border-radius:13px;padding:22px 25px}
+table{width:100%;border-collapse:collapse;font-size:15px}
+th{text-align:left;font-size:13px;color:#5b6472;border-bottom:2px solid #d7dee5;padding:8px 10px;letter-spacing:.03em}
+td{padding:9px 10px;border-bottom:1px solid #edf0f3;vertical-align:top}
+tr:nth-child(even) td{background:#fafbfc}
+.up{color:#0f7a3d;font-weight:800}.dn{color:#b45309;font-weight:800}.flat{color:#5b6472}
+.sc3{color:#0f7a3d;font-weight:800}.sc1{color:#b45309;font-weight:700}
+.sub{margin-top:3px}.sub2{color:#748192;font-size:13px}
+.track{position:relative;background:#eef1f4;border-radius:5px;height:16px;width:200px;display:inline-block}
+.fill{height:100%;border-radius:5px;background:#9fb3c8}.fill.g{background:#28a98b}.fill.r{background:#c2410c}
+.bval{position:absolute;right:6px;top:0;font-size:12px;line-height:16px;color:#233240;font-weight:700}
+.note{font-size:13.5px;color:#748192;line-height:1.65;margin:0 0 12px}
+.kv{display:grid;grid-template-columns:210px 1fr;gap:6px 16px;font-size:14.5px}
+.kv b{color:#233240}.kv span{color:#42505f}
+pre{background:#0f1922;color:#c9dbe8;border-radius:10px;padding:15px 18px;font-size:12.4px;line-height:1.55;overflow-wrap:anywhere;white-space:pre-wrap;font-family:ui-monospace,Menlo,monospace}
+.gates{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.gate{background:#fff;border:1px solid #dfe5eb;border-left:4px solid #28a98b;border-radius:10px;padding:15px 18px}
+.gate.amber{border-left-color:#c2410c}
+.gate h4{margin:0 0 5px;font-size:15.5px}.gate p{margin:0;font-size:13px;color:#66727f;line-height:1.6}
+ol,ul{margin:6px 0;padding-left:22px;font-size:14.5px;color:#3c4956;line-height:1.75}
+.footer{margin-top:32px;background:#172331;color:#bfccd7;border-radius:13px;padding:22px 26px}
+.frow{display:grid;grid-template-columns:1.2fr 1fr 1.1fr;gap:24px}
+.footer h4{color:#eff5f8;font-size:13.5px;margin:0 0 8px;letter-spacing:.08em}
+.footer p{font-size:12.3px;line-height:1.65;margin:0;color:#aebbca}
+.fbig{margin-top:14px;border-top:1px solid #2b3d4f;padding-top:12px;font-size:12.3px;color:#8fa1b3;line-height:1.6}</style></head><body>
+<header class="hero">
+  <div class="eyebrow"><i></i>LOCAL INFERENCE · QUANTIZATION FIDELITY · 2026-10-22 · Linux / 双卡</div>
+  <div class="title">同一个模型，两种精度：<br>DeepSeek-V4.1-Flash-1017 本地 2bit vs 官方 API</div>
+  <div class="subtitle">24 题同题对照（基础 14 + 困难 10）· 采样参数敏感度 12 次 · 视觉 4 题 · 长上下文取针 3 档至 44.3 万 token · 效率账单</div>
+  <div class="flag">✅ 唯一变量 = 权重精度（Maya-S IQ2_XXS/IQ2_S 2.56bpw）+ 自建服务栈；题目、判分器、采样参数两端完全一致</div>
+</header>
+<main class="wrap">
+
+<div class="summary">
+  <div class="metric primary"><div class="label">官方参数下 24 题总分（temperature=1.0 / top_p=1.0 / effort=high）</div>
+    <div class="num">24.0 <small>vs 23.975</small></div>
+    <p>本地 2bit <b>零失分</b>；官方唯一失分是中文摘要多写了 1 个汉字（41＞40 上限）。</p></div>
+  <div class="metric warn"><div class="label">同一难题 6 次：思考死循环率</div>
+    <div class="num">5/6 <small>→ 0/6</small></div>
+    <p>temperature=0 贪心解码把量化模型锁进重复循环（吃满 8192 token、正文为空）；换官方 T=1.0 后 12 次调用零退化。</p></div>
+  <div class="metric"><div class="label">长上下文取针（三针同取，窗口占用 84.6%）</div>
+    <div class="num">443K <small>token · 3/3 全中</small></div>
+    <p>本地 prefill 1,553 tok/s vs 官方 52,282 tok/s。<b>差的是速度，不是准确率。</b></p></div>
+</div>
+
+<section class="section"><div class="head"><span class="no">01</span><h2>硬件与被测对象</h2><div class="rule"></div></div>
+<div class="panel"><div class="kv">
+<b>GPU</b><span>NVIDIA RTX PRO 5000 72GB Blackwell（sm_120）×2 · 双卡层切（--tp 2 因专家 256 值块无法整除 n_ff 2304 降级为按层分）</span>
+<b>CPU / RAM</b><span>AMD Ryzen 9 9950X3D · 249.4 GiB DDR5（实测真实占用约 20.6 GiB，其余为 mmap 页缓存）</span>
+<b>OS</b><span>Ubuntu 24.04 · 引擎 maya 1.1.20（commit 35bb2b2）自编译 build/maya-ds4（sm_120 / CUDA 13.0）</span>
+<b>本地权重</b><span>Maya-S pack · IQ2_XXS / IQ2_S / IQ3_S 混合 · 实测 <b>2.56 bpw</b> · 325 GiB 落盘（6 分片 SHA256 全过）</span>
+<b>官方对照</b><span>api.deepseek.com · 模型 <b>deepseek-flash</b>（DeepSeek-V4.1-Flash-1017）· 原厂 FP4/FP8 · 上下文 1,048,576</span>
+<b>显存占用</b><span>本地每卡 ~72,300 MiB（专家驻留 11,894/15,360 = 77.4%；剩 3,850 专家按需从盘流式读）</span>
+</div></div></section>
+
+<section class="section"><div class="head"><span class="no">02</span><h2>测法（可照抄）</h2><div class="rule"></div></div>
+<div class="panel"><ol>
+<li>采样参数<b>一律取官方 model card</b>：temperature=1.0、top_p=1.0、reasoning_effort=high（官方 encoding 文档：effort 为 1–100 数值预算，low=50 / high=75 / max=100）。</li>
+<li>两端同 system prompt、同 max_tokens、同题目文本；本地经 SSH 隧道 <code>127.0.0.1:18181→Roy:8081</code> 直连，不经过任何网关改写。</li>
+<li>判分<b>全部可执行</b>：代码题 extract 代码块 → exec → 跑预置用例（含负数/空输入/边界）按通过数计分；数学用数值比对；JSON 严格校验键集合与类型；中文按句数/字数/禁用词计数。判分器先用伪造答案自测 13 项通过后才开跑。</li>
+<li>两道口径并列公布：<b>temperature=0（非官方）</b>与 <b>官方参数</b>。前者是本轮最初误用的设置，保留用于说明差异来源。</li>
+<li>长文取针用自造文档（无意义英文日志 + 三条 RETENTION RECORD 埋在 10%/50%/90% 位置），三针必须同时取出才算通过。</li>
+</ol></div></section>
+
+<section class="section"><div class="head"><span class="no">03</span><h2>结果 A｜24 题逐题对照</h2><div class="rule"></div></div>
+<div class="panel">
+<p class="note">两端口径并列。合计：<b>temperature=0 → 本地 22.975 / 官方 24.0</b>；<b>官方参数 → 本地 24.0 / 官方 23.975</b>（满分 24）。</p>
+<table><tr><th>题</th><th>类别</th><th>组</th><th>temp=0 本地</th><th>temp=0 官方</th><th>官方参数 本地</th><th>官方参数 官方</th></tr>
+<tr><td><b>M1</b></td><td>数学</td><td class='sub2'>基础</td><td><span class="sc3">1.00</span></td><td><span class="sc3">1.00</span></td><td><span class="sc3">1.00</span></td><td><span class="sc3">1.00</span></td></tr>
+<tr><td><b>M2</b></td><td>数学</td><td class='sub2'>基础</td><td><span class="sc3">1.00</span></td><td><span class="sc3">1.00</span></td><td><span class="sc3">1.00</span></td><td><span class="sc3">1.00</span></td></tr>
+<tr><td><b>M3</b></td><td>数学</td><td class='sub2'>基础</td><td><span class="sc3">1.00</span></td><td><span class="sc3">1.00</span></td><td><span class="sc3">1.00</span></td><td><span class="sc3">1.00</span></td></tr>
+<tr><td><b>M4</b></td><td>数学</td><td class='sub2'>基础</td><td><span class="sc3">1.00</span></td><td><span class="sc3">1.00</span></td><td><span class="sc3">1.00</span></td><td><span class="sc3">1.00</span></td></tr>
+<tr><td><b>C1</b></td><td>代码</td><td class='sub2'>基础</td><td><span class="sc3">1.00</span></td><td><span class="sc3">1.00</span></td><td><span class="sc3">1.00</span></td><td><span class="sc3">1.00</span></td></tr>
+<tr><td><b>C2</b></td><td>代码</td><td class='sub2'>基础</td><td><span class="sc3">1.00</span></td><td><span class="sc3">1.00</span></td><td><span class="sc3">1.00</span></td><td><span class="sc3">1.00</span></td></tr>
+<tr><td><b>C3</b></td><td>代码</td><td class='sub2'>基础</td><td><span class="sc3">1.00</span></td><td><span class="sc3">1.00</span></td><td><span class="sc3">1.00</span></td><td><span class="sc3">1.00</span></td></tr>
+<tr><td><b>C4</b></td><td>代码</td><td class='sub2'>基础</td><td><span class="sc3">1.00</span></td><td><span class="sc3">1.00</span></td><td><span class="sc3">1.00</span></td><td><span class="sc3">1.00</span></td></tr>
+<tr><td><b>Z1</b></td><td>中文</td><td class='sub2'>基础</td><td><span class="sc1">0.975</span></td><td><span class="sc3">1.00</span></td><td><span class="sc3">1.00</span></td><td><span class="sc1">0.975</span></td></tr>
+<tr><td><b>Z2</b></td><td>中文</td><td class='sub2'>基础</td><td><span class="sc3">1.00</span></td><td><span class="sc3">1.00</span></td><td><span class="sc3">1.00</span></td><td><span class="sc3">1.00</span></td></tr>
+<tr><td><b>Z3</b></td><td>中文</td><td class='sub2'>基础</td><td><span class="sc3">1.00</span></td><td><span class="sc3">1.00</span></td><td><span class="sc3">1.00</span></td><td><span class="sc3">1.00</span></td></tr>
+<tr><td><b>L1</b></td><td>长文</td><td class='sub2'>基础</td><td><span class="sc3">1.00</span></td><td><span class="sc3">1.00</span></td><td><span class="sc3">1.00</span></td><td><span class="sc3">1.00</span></td></tr>
+<tr><td><b>L2</b></td><td>长文</td><td class='sub2'>基础</td><td><span class="sc3">1.00</span></td><td><span class="sc3">1.00</span></td><td><span class="sc3">1.00</span></td><td><span class="sc3">1.00</span></td></tr>
+<tr><td><b>K1</b></td><td>知识</td><td class='sub2'>基础</td><td><span class="sc3">1.00</span></td><td><span class="sc3">1.00</span></td><td><span class="sc3">1.00</span></td><td><span class="sc3">1.00</span></td></tr>
+<tr><td><b>H1</b></td><td>数学</td><td class='sub2'>困难</td><td><span class="sc3">1.00</span></td><td><span class="sc3">1.00</span></td><td><span class="sc3">1.00</span></td><td><span class="sc3">1.00</span></td></tr>
+<tr><td><b>H2</b></td><td>数学</td><td class='sub2'>困难</td><td><span class="sc3">1.00</span></td><td><span class="sc3">1.00</span></td><td><span class="sc3">1.00</span></td><td><span class="sc3">1.00</span></td></tr>
+<tr><td><b>H3</b></td><td>数学</td><td class='sub2'>困难</td><td><span class="sc3">1.00</span></td><td><span class="sc3">1.00</span></td><td><span class="sc3">1.00</span></td><td><span class="sc3">1.00</span></td></tr>
+<tr><td><b>H4</b></td><td>数学</td><td class='sub2'>困难</td><td><span class="sc3">1.00</span></td><td><span class="sc3">1.00</span></td><td><span class="sc3">1.00</span></td><td><span class="sc3">1.00</span></td></tr>
+<tr><td><b>H5</b></td><td>代码</td><td class='sub2'>困难</td><td><span class="sc3">1.00</span></td><td><span class="sc3">1.00</span></td><td><span class="sc3">1.00</span></td><td><span class="sc3">1.00</span></td></tr>
+<tr><td><b>H6</b></td><td>代码</td><td class='sub2'>困难</td><td><span class="dn">0.000</span></td><td><span class="sc3">1.00</span></td><td><span class="sc3">1.00</span></td><td><span class="sc3">1.00</span></td></tr>
+<tr><td><b>H7</b></td><td>数学</td><td class='sub2'>困难</td><td><span class="sc3">1.00</span></td><td><span class="sc3">1.00</span></td><td><span class="sc3">1.00</span></td><td><span class="sc3">1.00</span></td></tr>
+<tr><td><b>H8</b></td><td>指令</td><td class='sub2'>困难</td><td><span class="sc3">1.00</span></td><td><span class="sc3">1.00</span></td><td><span class="sc3">1.00</span></td><td><span class="sc3">1.00</span></td></tr>
+<tr><td><b>H9</b></td><td>长文</td><td class='sub2'>困难</td><td><span class="sc3">1.00</span></td><td><span class="sc3">1.00</span></td><td><span class="sc3">1.00</span></td><td><span class="sc3">1.00</span></td></tr>
+<tr><td><b>H10</b></td><td>中文</td><td class='sub2'>困难</td><td><span class="sc3">1.00</span></td><td><span class="sc3">1.00</span></td><td><span class="sc3">1.00</span></td><td><span class="sc3">1.00</span></td></tr>
+</table>
+<p class="note" style="margin-top:12px">唯一失分点 H6（实现 parse_duration，需处理多约束非法输入）在 temperature=0 下三次调用两次吃满 8192 token 且正文为空；换官方参数后 24 题零空输出。其余 23 题两端口径均满分。</p>
+</div></section>
+
+<section class="section"><div class="head"><span class="no">04</span><h2>结果 B｜采样参数敏感度（同一难题 ×6）</h2><div class="rule"></div></div>
+<div class="panel">
+<p class="note">题目固定为 H6，max_tokens=8192，只改采样参数。退化判据 = <code>finish_reason=length</code> 且正文为空。</p>
+<table><tr><th>次</th><th>temperature=0 输出 token</th><th>结果</th><th>官方参数 输出 token</th><th>结果</th></tr>
+<tr><td>第 1 次</td><td class='dn'>8192（满上限→空输出）</td><td>退化</td><td class='flat'>1283</td><td>正常</td></tr>
+<tr><td>第 2 次</td><td class='flat'>1220</td><td>正常</td><td class='flat'>863</td><td>正常</td></tr>
+<tr><td>第 3 次</td><td class='dn'>8192（满上限→空输出）</td><td>退化</td><td class='flat'>4258</td><td>正常</td></tr>
+<tr><td>第 4 次</td><td class='dn'>8192（满上限→空输出）</td><td>退化</td><td class='flat'>1196</td><td>正常</td></tr>
+<tr><td>第 5 次</td><td class='dn'>8192（满上限→空输出）</td><td>退化</td><td class='flat'>1351</td><td>正常</td></tr>
+<tr><td>第 6 次</td><td class='dn'>8192（满上限→空输出）</td><td>退化</td><td class='flat'>2068</td><td>正常</td></tr>
+</table>
+<p class="note" style="margin-top:12px">退化时 reasoning 尾部是同一句边界检查无限重复（<code>Need consider "1h30m5s6s" invalid.</code> × 数百行），说明 2bit 量化在贪心解码下丢失了“该停了”的判断力。<b>temperature=0 两批 n=6 分别退化 1/6 与 5/6（不稳定但都远高于 T=1.0），官方参数两批共 24 次调用 0 退化。</b></p>
+</div></section>
+
+<section class="section"><div class="head"><span class="no">05</span><h2>结果 C｜视觉（同一张 1400×900 报表图，4 题）</h2><div class="rule"></div></div>
+<div class="panel">
+<table><tr><th>题</th><th>本地</th><th>官方</th><th>本地 vision token</th><th>官方 vision token</th></tr>
+<tr><td><b>V1</b></td><td><span class="sc3">1.00</span></td><td><span class="sc3">1.00</span></td><td>875</td><td>875</td></tr>
+<tr><td><b>V2</b></td><td><span class="sc3">1.00</span></td><td><span class="sc3">1.00</span></td><td>867</td><td>867</td></tr>
+<tr><td><b>V3</b></td><td><span class="sc3">1.00</span></td><td><span class="sc3">1.00</span></td><td>880</td><td>880</td></tr>
+<tr><td><b>V4</b></td><td><span class="sc3">1.00</span></td><td><span class="sc3">1.00</span></td><td>877</td><td>877</td></tr>
+</table>
+<p class="note" style="margin-top:12px">两端 vision 编码 token 数<b>逐题相同</b>（875 / 867 / 880 / 877），答案字符串也逐字相同（表格数值 1706、七位数 4719203、Note 里的原始值 1462、颜色顺序红-绿-蓝）。可判定本地 vision 入口与原厂一致，量化未伤到视觉塔。</p>
+</div></section>
+
+<section class="section"><div class="head"><span class="no">06</span><h2>结果 D｜长上下文多针取针（3 档）</h2><div class="rule"></div></div>
+<div class="panel">
+<table><tr><th>prompt token</th><th>占本地 512K 窗口</th><th>本地命中</th><th>官方命中</th><th>本地耗时</th><th>官方耗时</th><th>官方快</th></tr>
+<tr><td class='sub2'>29,782</td><td>5.7%</td><td class='up'>3/3</td><td class='up'>3/3</td><td>22.73 s</td><td>2.15 s</td><td><b>10.6×</b></td></tr>
+<tr><td class='sub2'>221,690</td><td>42.3%</td><td class='up'>3/3</td><td class='up'>3/3</td><td>135.34 s</td><td>6.15 s</td><td><b>22.0×</b></td></tr>
+<tr><td class='sub2'>443,355</td><td>84.6%</td><td class='up'>3/3</td><td class='up'>3/3</td><td>285.45 s</td><td>8.48 s</td><td><b>33.7×</b></td></tr>
+</table>
+<p class="note" style="margin-top:12px">针位在 10% / 50% / 90%，正确答案要求三值同取（ALPHA=7431;BETA=9K2M;GAMMA=QW-5517）。<b>三档两端全部 3/3，输出逐字相同，无“中间遗忘”。</b>本地 prefill 在 1,310–1,638 tok/s 区间基本持平，官方随长度递增（batching 摊薄），长文差距被拉大到 30 倍以上。</p>
+</div></section>
+
+<section class="section"><div class="head"><span class="no">07</span><h2>结果 E｜效率账单（官方参数轮，24 题）</h2><div class="rule"></div></div>
+<div class="gates">
+<div class="gate"><h4>输出 token：本地 7,918 vs 官方 6,715（1.18×）</h4><p>本地 reasoning 普遍更长，单题最大 3.4 倍（H10 的 1,101 vs 328 字符）。多花的 token 主要用在更长的思考上，答案本身同级。</p></div>
+<div class="gate amber"><h4>墙钟耗时：本地 102.1 s vs 官方 47.5 s（2.15×）</h4><p>24 题串行总时长。单题最大差距出现在代码题（H5：19.62 s vs 5.55 s）。</p></div>
+</div>
+<div class="panel" style="margin-top:12px"><p class="note" style="margin:0">prefill 侧差距更极端：443,355 token 的冷读本地 285.45 s，官方 8.48 s（<b>33.7×</b>）。这决定了长文业务能不能落地——<b>准确率不是瓶颈，读盘速度才是。</b></p></div>
+</section>
+
+<section class="section"><div class="head"><span class="no">08</span><h2>限制（L1–L5）</h2><div class="rule"></div></div>
+<div class="panel"><ol>
+<li><b>这不是官方 benchmark 的复现。</b>官方 11 项（HLE / Terminal-Bench 4.0 / DeepSWE v1.1 / ProgramBench / Apex Bench 等）本轮<b>均未跑成</b>：HLE 在 HF 为 gated 需申请与 token（本机无 HF token，直连 parquet 返 401）；Terminal-Bench 需 Docker harness（本机未装）；DeepSWE 需 Mini-SWE-V2。因此本图数字<b>不可与官方公布的 42.6（44.0†）等直接相减</b>。</li>
+<li>24 题为自拟，样本量小：单题权重 4.2%，一处 1 字之差即造成 0.025 分差，不宜当强结论。</li>
+<li>temperature=0 的退化率本身不稳定（两批 1/6 与 5/6），说明结果对初始分支敏感；T=1.0 的 0/6 来自两批共 24 次调用，方向明确但样本仍有限。</li>
+<li>长文未打满 524,288 满窗（止于 443,355）；针位稀疏且格式显眼，未做“针埋在密集干扰区”的对抗版；视觉仅 1 张图 4 题。</li>
+<li>本地性能受双卡共享与专家流式读影响，绝对值不可与其他机器横比；<b>别照抄参数，先跑自己机器上的退化率测试再定温度。</b></li>
+</ol></div></section>
+
+<footer class="footer"><div class="frow">
+<div><h4>原始数据</h4><p>三次跑测的全部原始响应（raw JSON，含 reasoning_content 与 finish_reason）、逐题判分、退化对照、视觉与取针回执均在项目 evidence 目录，海报每个数字由单一聚合脚本 <code>poster_data.py</code> 产出，非手抄。</p></div>
+<div><h4>负载构造</h4><p>24 题自拟（数学/代码/中文/长文/指令）；死循环对照组固定同一难题 ×6；取针=自造英文日志 + 三条 RETENTION RECORD；视觉=程序化生成的报表图。</p></div>
+<div><h4>复现</h4><p>本地：<code>ssh -L 18181:127.0.0.1:8081</code> 后调 <code>/v1/chat/completions</code><br>官方：<code>api.deepseek.com/v1</code>，model=<code>deepseek-flash</code><br>参数：temperature 1.0 / top_p 1.0 / reasoning_effort high</p></div>
+</div>
+<div class="fbig">单位：token 为 API usage 口径，tok/s 为 prompt_token÷墙钟（含少量生成时间，仅量级参考）· 日期 2026-10-22 · 无凭据/无隐私内容 · 本地引擎 maya 1.1.20 · 结论门槛：能力题以逐题判分比对，退化以 finish=length 且正文空判定 · 全部实测，未用推算补数。</div>
+</footer>
+</main></body></html>

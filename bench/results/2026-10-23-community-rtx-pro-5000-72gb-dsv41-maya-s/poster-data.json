@@ -1,0 +1,445 @@
+{
+ "t0": {
+  "local": 22.975,
+  "official": 24.0,
+  "n": 24
+ },
+ "offp": {
+  "local": 24.0,
+  "official": 23.975,
+  "n": 24
+ },
+ "groups": {
+  "基础": {
+   "local": 14.0,
+   "official": 13.975,
+   "n": 14
+  },
+  "困难": {
+   "local": 10.0,
+   "official": 10.0,
+   "n": 10
+  }
+ },
+ "rows": [
+  {
+   "id": "M1",
+   "cat": "数学",
+   "group": "基础",
+   "off_local": 1.0,
+   "off_official": 1.0,
+   "t0_local": 1.0,
+   "t0_official": 1.0,
+   "off_local_degen": false,
+   "off_official_degen": false
+  },
+  {
+   "id": "M2",
+   "cat": "数学",
+   "group": "基础",
+   "off_local": 1.0,
+   "off_official": 1.0,
+   "t0_local": 1.0,
+   "t0_official": 1.0,
+   "off_local_degen": false,
+   "off_official_degen": false
+  },
+  {
+   "id": "M3",
+   "cat": "数学",
+   "group": "基础",
+   "off_local": 1.0,
+   "off_official": 1.0,
+   "t0_local": 1.0,
+   "t0_official": 1.0,
+   "off_local_degen": false,
+   "off_official_degen": false
+  },
+  {
+   "id": "M4",
+   "cat": "数学",
+   "group": "基础",
+   "off_local": 1.0,
+   "off_official": 1.0,
+   "t0_local": 1.0,
+   "t0_official": 1.0,
+   "off_local_degen": false,
+   "off_official_degen": false
+  },
+  {
+   "id": "C1",
+   "cat": "代码",
+   "group": "基础",
+   "off_local": 1.0,
+   "off_official": 1.0,
+   "t0_local": 1.0,
+   "t0_official": 1.0,
+   "off_local_degen": false,
+   "off_official_degen": false
+  },
+  {
+   "id": "C2",
+   "cat": "代码",
+   "group": "基础",
+   "off_local": 1.0,
+   "off_official": 1.0,
+   "t0_local": 1.0,
+   "t0_official": 1.0,
+   "off_local_degen": false,
+   "off_official_degen": false
+  },
+  {
+   "id": "C3",
+   "cat": "代码",
+   "group": "基础",
+   "off_local": 1.0,
+   "off_official": 1.0,
+   "t0_local": 1.0,
+   "t0_official": 1.0,
+   "off_local_degen": false,
+   "off_official_degen": false
+  },
+  {
+   "id": "C4",
+   "cat": "代码",
+   "group": "基础",
+   "off_local": 1.0,
+   "off_official": 1.0,
+   "t0_local": 1.0,
+   "t0_official": 1.0,
+   "off_local_degen": false,
+   "off_official_degen": false
+  },
+  {
+   "id": "Z1",
+   "cat": "中文",
+   "group": "基础",
+   "off_local": 1.0,
+   "off_official": 0.975,
+   "t0_local": 0.975,
+   "t0_official": 1.0,
+   "off_local_degen": false,
+   "off_official_degen": false
+  },
+  {
+   "id": "Z2",
+   "cat": "中文",
+   "group": "基础",
+   "off_local": 1.0,
+   "off_official": 1.0,
+   "t0_local": 1.0,
+   "t0_official": 1.0,
+   "off_local_degen": false,
+   "off_official_degen": false
+  },
+  {
+   "id": "Z3",
+   "cat": "中文",
+   "group": "基础",
+   "off_local": 1.0,
+   "off_official": 1.0,
+   "t0_local": 1.0,
+   "t0_official": 1.0,
+   "off_local_degen": false,
+   "off_official_degen": false
+  },
+  {
+   "id": "L1",
+   "cat": "长文",
+   "group": "基础",
+   "off_local": 1.0,
+   "off_official": 1.0,
+   "t0_local": 1.0,
+   "t0_official": 1.0,
+   "off_local_degen": false,
+   "off_official_degen": false
+  },
+  {
+   "id": "L2",
+   "cat": "长文",
+   "group": "基础",
+   "off_local": 1.0,
+   "off_official": 1.0,
+   "t0_local": 1.0,
+   "t0_official": 1.0,
+   "off_local_degen": false,
+   "off_official_degen": false
+  },
+  {
+   "id": "K1",
+   "cat": "知识",
+   "group": "基础",
+   "off_local": 1.0,
+   "off_official": 1.0,
+   "t0_local": 1.0,
+   "t0_official": 1.0,
+   "off_local_degen": false,
+   "off_official_degen": false
+  },
+  {
+   "id": "H1",
+   "cat": "数学",
+   "group": "困难",
+   "off_local": 1.0,
+   "off_official": 1.0,
+   "t0_local": 1.0,
+   "t0_official": 1.0,
+   "off_local_degen": false,
+   "off_official_degen": false
+  },
+  {
+   "id": "H2",
+   "cat": "数学",
+   "group": "困难",
+   "off_local": 1.0,
+   "off_official": 1.0,
+   "t0_local": 1.0,
+   "t0_official": 1.0,
+   "off_local_degen": false,
+   "off_official_degen": false
+  },
+  {
+   "id": "H3",
+   "cat": "数学",
+   "group": "困难",
+   "off_local": 1.0,
+   "off_official": 1.0,
+   "t0_local": 1.0,
+   "t0_official": 1.0,
+   "off_local_degen": false,
+   "off_official_degen": false
+  },
+  {
+   "id": "H4",
+   "cat": "数学",
+   "group": "困难",
+   "off_local": 1.0,
+   "off_official": 1.0,
+   "t0_local": 1.0,
+   "t0_official": 1.0,
+   "off_local_degen": false,
+   "off_official_degen": false
+  },
+  {
+   "id": "H5",
+   "cat": "代码",
+   "group": "困难",
+   "off_local": 1.0,
+   "off_official": 1.0,
+   "t0_local": 1.0,
+   "t0_official": 1.0,
+   "off_local_degen": false,
+   "off_official_degen": false
+  },
+  {
+   "id": "H6",
+   "cat": "代码",
+   "group": "困难",
+   "off_local": 1.0,
+   "off_official": 1.0,
+   "t0_local": 0.0,
+   "t0_official": 1.0,
+   "off_local_degen": false,
+   "off_official_degen": false
+  },
+  {
+   "id": "H7",
+   "cat": "数学",
+   "group": "困难",
+   "off_local": 1.0,
+   "off_official": 1.0,
+   "t0_local": 1.0,
+   "t0_official": 1.0,
+   "off_local_degen": false,
+   "off_official_degen": false
+  },
+  {
+   "id": "H8",
+   "cat": "指令",
+   "group": "困难",
+   "off_local": 1.0,
+   "off_official": 1.0,
+   "t0_local": 1.0,
+   "t0_official": 1.0,
+   "off_local_degen": false,
+   "off_official_degen": false
+  },
+  {
+   "id": "H9",
+   "cat": "长文",
+   "group": "困难",
+   "off_local": 1.0,
+   "off_official": 1.0,
+   "t0_local": 1.0,
+   "t0_official": 1.0,
+   "off_local_degen": false,
+   "off_official_degen": false
+  },
+  {
+   "id": "H10",
+   "cat": "中文",
+   "group": "困难",
+   "off_local": 1.0,
+   "off_official": 1.0,
+   "t0_local": 1.0,
+   "t0_official": 1.0,
+   "off_local_degen": false,
+   "off_official_degen": false
+  }
+ ],
+ "loop": {
+  "t0_batchA": [
+   1,
+   6
+  ],
+  "t0_batchB": [
+   5,
+   6
+  ],
+  "t1_batchC": [
+   0,
+   6
+  ],
+  "t0_ct": [
+   8192,
+   1220,
+   8192,
+   8192,
+   8192,
+   8192
+  ],
+  "t1_ct": [
+   1283,
+   863,
+   4258,
+   1196,
+   1351,
+   2068
+  ]
+ },
+ "vision": {
+  "local": 4.0,
+  "official": 4.0,
+  "n": 4,
+  "items": [
+   {
+    "id": "V1",
+    "l": 1.0,
+    "o": 1.0,
+    "lpt": 875,
+    "opt": 875,
+    "lans": "1706",
+    "oans": "1706"
+   },
+   {
+    "id": "V2",
+    "l": 1.0,
+    "o": 1.0,
+    "lpt": 867,
+    "opt": 867,
+    "lans": "4719203",
+    "oans": "4719203"
+   },
+   {
+    "id": "V3",
+    "l": 1.0,
+    "o": 1.0,
+    "lpt": 880,
+    "opt": 880,
+    "lans": "1462",
+    "oans": "1462"
+   },
+   {
+    "id": "V4",
+    "l": 1.0,
+    "o": 1.0,
+    "lpt": 877,
+    "opt": 877,
+    "lans": "红色、绿色、蓝色",
+    "oans": "红色、绿色、蓝色"
+   }
+  ]
+ },
+ "needle": [
+  {
+   "label": "small1200",
+   "local": {
+    "score": 1.0,
+    "pt": 29782,
+    "elapsed": 22.73,
+    "hits": 3
+   },
+   "official": {
+    "score": 1.0,
+    "pt": 29782,
+    "elapsed": 2.15,
+    "hits": 3
+   },
+   "prefill_local": 1310,
+   "prefill_official": 13852,
+   "pct_window": 5.7
+  },
+  {
+   "label": "big9000",
+   "local": {
+    "score": 1.0,
+    "pt": 221690,
+    "elapsed": 135.34,
+    "hits": 3
+   },
+   "official": {
+    "score": 1.0,
+    "pt": 221690,
+    "elapsed": 6.15,
+    "hits": 3
+   },
+   "prefill_local": 1638,
+   "prefill_official": 36047,
+   "pct_window": 42.3
+  },
+  {
+   "label": "xl18000",
+   "local": {
+    "score": 1.0,
+    "pt": 443355,
+    "elapsed": 285.45,
+    "hits": 3
+   },
+   "official": {
+    "score": 1.0,
+    "pt": 443355,
+    "elapsed": 8.48,
+    "hits": 3
+   },
+   "prefill_local": 1553,
+   "prefill_official": 52282,
+   "pct_window": 84.6
+  }
+ ],
+ "eff": {
+  "l_ct": 7918,
+  "o_ct": 6715,
+  "ct_ratio": 1.18,
+  "l_el": 102.1,
+  "o_el": 47.5,
+  "el_ratio": 2.15,
+  "calls": 48,
+  "rlen_top": [
+   [
+    "H10",
+    1101,
+    328
+   ],
+   [
+    "Z3",
+    778,
+    268
+   ],
+   [
+    "K1",
+    2633,
+    914
+   ]
+  ]
+ }
+}
