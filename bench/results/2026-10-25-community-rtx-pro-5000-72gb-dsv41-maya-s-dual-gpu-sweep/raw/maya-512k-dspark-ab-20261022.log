@@ -1,0 +1,38 @@
+  [1/2] without drafting: loading the model (it reads the experts into the GPUs' memory and RAM first) ...
+[maya] starting the engine: reading the model's weights ...
+[maya] still starting (20 s) - please wait ...
+  [1/2] without drafting: loaded in 30 s; warming up - it reads a document of 512 tokens and answers once (not counted) ...
+  [1/2] without drafting: answer 1: 384 tokens at 45.1 tokens/s - 384 of 1024 tokens measured
+  [1/2] without drafting: answer 2: 384 tokens at 46.3 tokens/s - 768 of 1024 tokens measured
+  [1/2] without drafting: answer 3: 384 tokens at 46.8 tokens/s - 1024 of 1024 tokens measured
+  [1/2] without drafting: 46.0 tokens/s sustained (1152 tokens in 25 s of writing)
+  [2/2] DSpark: loading the model (it reads the experts into the GPUs' memory and RAM first) ...
+[maya] starting the engine: reading the model's weights ...
+[maya] still starting (20 s) - please wait ...
+  [2/2] DSpark: loaded in 29 s; warming up - it reads a document of 512 tokens and answers once (not counted) ...
+  [2/2] DSpark: answer 1: 384 tokens at 69.6 tokens/s - 384 of 1024 tokens measured
+  [2/2] DSpark: answer 2: 384 tokens at 74.5 tokens/s - 768 of 1024 tokens measured
+  [2/2] DSpark: answer 3: 384 tokens at 69.3 tokens/s - 1024 of 1024 tokens measured
+  [2/2] DSpark: 71.0 tokens/s sustained (1152 tokens in 16 s of writing), 67% of the drafts accepted
+{
+ "none": {
+  "tok_s": 46.03,
+  "tokens": 1152,
+  "answers": 3,
+  "seconds": 25.0,
+  "load_s": 30,
+  "drafts_accepted": 0,
+  "drafts_offered": 0
+ },
+ "dspark": {
+  "tok_s": 71.03,
+  "tokens": 1152,
+  "answers": 3,
+  "seconds": 16.2,
+  "load_s": 29,
+  "drafts_accepted": 595,
+  "drafts_offered": 891
+ },
+ "keep": "dspark",
+ "gain": 0.543
+}

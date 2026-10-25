@@ -1,0 +1,138 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><title>Strata Terminal × DeepSeek-V4.1-Flash-1017 · GPU1 单卡参数实测</title>
+<style>*{box-sizing:border-box}html,body{margin:0;background:#eef1f4;color:#17202b}
+body{width:1560px;margin:0 auto;font-family:"PingFang SC","Noto Sans SC","Source Han Sans SC","Helvetica Neue",Arial,sans-serif;font-variant-numeric:tabular-nums;-webkit-font-smoothing:antialiased}
+.wrap{padding:50px 62px 44px}
+.hero{background:#172331;color:#fff;padding:46px 62px 40px}
+.eyebrow{font-size:15px;letter-spacing:.14em;color:#8fd3c4;font-weight:700}.eyebrow i{display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a98b;margin-right:9px}
+.title{font-size:42px;font-weight:850;margin:14px 0 6px;line-height:1.24}
+.subtitle{font-size:18px;color:#b9c7d4;line-height:1.55}
+.chips{margin-top:18px;display:flex;flex-wrap:wrap;gap:9px}
+.chip{background:#25384a;border:1px solid #3a5570;color:#cfe3f0;font-size:14px;padding:7px 14px;border-radius:9px}
+.chip b{color:#8fd3c4}
+.summary{display:grid;grid-template-columns:1.12fr 1fr 1fr;gap:16px;margin-top:26px}
+.metric{background:#fff;border:1px solid #dfe5eb;border-radius:14px;padding:24px 27px}
+.metric.primary{background:#eaf8f4;border-color:#bde7da}
+.metric.warn{background:#fff7ed;border-color:#f0d4b4}
+.metric .label{font-size:14.5px;letter-spacing:.06em;color:#5b6472;font-weight:700}
+.metric .num{font-size:42px;font-weight:850;margin:7px 0 4px;line-height:1.15}.metric .num small{font-size:17px;font-weight:650;color:#5b6472}
+.metric p{font-size:13.5px;color:#748192;line-height:1.6;margin:6px 0 0}
+.section{margin-top:32px}.head{display:flex;align-items:center;gap:14px;margin-bottom:14px}
+.no{font-size:16px;color:#17826d;font-weight:850;letter-spacing:.1em}.head h2{font-size:26px;margin:0;font-weight:800}
+.rule{height:1px;background:#d7dee5;flex:1}
+.panel{background:#fff;border:1px solid #dfe5eb;border-radius:13px;padding:22px 25px}
+table{width:100%;border-collapse:collapse;font-size:15px}
+th{text-align:left;font-size:13px;color:#5b6472;border-bottom:2px solid #d7dee5;padding:8px 10px;letter-spacing:.03em}
+td{padding:9px 10px;border-bottom:1px solid #edf0f3;vertical-align:top}
+tr:nth-child(even) td{background:#fafbfc}
+td.r,th.r{text-align:right}
+.up{color:#0f7a3d;font-weight:800}.dn{color:#b45309;font-weight:700}.flat{color:#5b6472}
+.grp td{background:#eef4f8!important;font-weight:800;color:#234058;font-size:14px}
+.sub2{color:#748192;font-size:13px}
+.bar{margin:10px 0 16px;display:flex;align-items:center;gap:14px}
+.blbl{width:250px;text-align:right;font-size:14.5px;font-weight:700;color:#233240;line-height:1.3}
+.blbl small{display:block;font-weight:400;color:#748192;font-size:12px}
+.track{position:relative;background:#eef1f4;border-radius:5px;height:20px;flex:1}
+.fill{height:100%;border-radius:5px;background:#9fb3c8}.fill.g{background:#28a98b}.fill.o{background:#c2410c}
+.bval{position:absolute;right:8px;top:0;font-size:13px;line-height:20px;color:#233240;font-weight:800}
+.note{font-size:13.5px;color:#748192;line-height:1.65;margin:0 0 12px}
+.kv{display:grid;grid-template-columns:218px 1fr;gap:6px 16px;font-size:14.5px}
+.kv b{color:#233240}.kv span{color:#42505f}
+pre{background:#0f1922;color:#c9dbe8;border-radius:10px;padding:15px 18px;font-size:12.4px;line-height:1.55;overflow-wrap:anywhere;white-space:pre-wrap;font-family:ui-monospace,Menlo,monospace}
+.gates{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.gate{background:#fff;border:1px solid #dfe5eb;border-left:4px solid #28a98b;border-radius:10px;padding:15px 18px}
+.gate.amber{border-left-color:#c2410c}
+.gate h4{margin:0 0 5px;font-size:15.5px}.gate p{margin:0;font-size:13px;color:#66727f;line-height:1.6}
+ol,ul{margin:6px 0;padding-left:22px;font-size:14.5px;color:#3c4956;line-height:1.75}
+.footer{margin-top:32px;background:#172331;color:#bfccd7;border-radius:13px;padding:22px 26px}
+.frow{display:grid;grid-template-columns:1.2fr 1fr 1.1fr;gap:24px}
+.footer h4{color:#eff5f8;font-size:13.5px;margin:0 0 8px;letter-spacing:.08em}
+.footer p{font-size:12.3px;line-height:1.65;margin:0;color:#aebbca}
+.fbig{margin-top:14px;border-top:1px solid #2b3d4f;padding-top:12px;font-size:12.3px;color:#8fa1b3;line-height:1.6}</style></head><body>
+<header class="hero">
+  <div class="eyebrow"><i></i>LOCAL INFERENCE · SINGLE GPU · STRATA TERMINAL · 2026-10-25 · Linux / CUDA 13</div>
+  <div class="title">单卡 72GB 跑 DeepSeek-V4.1-Flash-1017：<br>Strata Terminal 0.2.4.2 各参数部署实测（GPU1）</div>
+  <div class="subtitle">ISTA-DASLab IQ2_XS 量化（2.25 bpw，全套 273.8GB）· 上下文 262,144 · DSpark off/on 固定输出 A/B · 24 万 token 近满窗取针 · 全部 solo 单请求</div>
+  <div class="chips">
+    <div class="chip">引擎 <b>Strata Terminal 0.2.4.2</b> / DSV41 engine 0.1.49.2 CUDA13</div>
+    <div class="chip">GPU <b>RTX PRO 5000 72GB ×1</b>（仅 GPU1）</div>
+    <div class="chip">CPU <b>Ryzen 9 9950X3D</b> · DDR5 249GiB</div>
+    <div class="chip">权重 <b>DeepSeek-V4.1-Flash-1017 IQ2_XS 2.25bpw</b></div>
+    <div class="chip">端点 <b>127.0.0.1:18084</b> · n_ctx 262,144</div>
+  </div>
+</header>
+<main class="wrap">
+
+<div class="summary">
+  <div class="metric primary"><div class="label">短输出 decode（512 token 固定请求 · API 口径 · 3 轮均值）</div>
+    <div class="num">42.77 <small>tok/s · DSpark on</small></div>
+    <p>显式 <code>off</code> 同法测得 <b>39.05 tok/s</b>，on 快 <b>+9.5%</b>。存在 off先/on后 顺序缓存偏差，<b>本机维持 auto</b>，未据此永久改 on。</p></div>
+  <div class="metric"><div class="label">长输入 prefill（240,065-token 近满窗请求）</div>
+    <div class="num">928.5 <small>tok/s</small></div>
+    <p>输入占窗口 91.6%，读入 258.564 s；埋针 <code>AMBER-CEDAR-5817</code> 准确取回。长请求主要耗时在吃提示词，decode 优化帮不上这段。</p></div>
+  <div class="metric warn"><div class="label">显存 / 主机内存布局（单卡实测）</div>
+    <div class="num">72,342 <small>MiB / 73,415</small></div>
+    <p>GPU1 占用（长请求峰值 72,384 MiB，余量约 1GiB）；约 91.9GB 专家走 CPU lane（8 线程）。<b>无 OOM、无第二张卡。</b></p></div>
+</div>
+
+<section class="section"><div class="head"><span class="no">01</span><h2>部署参数（与在跑配置逐字一致）</h2><div class="rule"></div></div>
+<div class="panel"><div class="kv">
+<b>软件栈</b><span>Strata Terminal 0.2.4.2（Control 0.1.49.2）· DSV41 engine 0.1.49.2 CUDA 13 · 官方 signed feed 112 验签通过，engine 包 SHA-256 <code>918a2155…5283</code> 与 feed 一致</span>
+<b>模型文件</b><span>ISTA-DASLab 1017 · IQ2_XS 四分片 155.2GB + Engram 110.6GB + DSpark 8.0GB ≈ <b>273.8GB</b>；逐文件 SHA-256 与 release setup pins 相符；pack-info 校验 <b>48,488 tensors</b> 齐全（ModelScope 镜像获取）</span>
+<b>关键参数</b><span><code>--gpu 1</code> · <code>n_ctx=262144</code> · local/loopback · 图片关闭 · CPU expert threads=8 · <code>--dspark auto</code>（默认）· <code>--dspark-conf 0.65</code> · Quick tune · 未加 8GiB VRAM 预留（engine 默认小 reserve）</span>
+<b>内存规划</b><span>部署 plan 估算：约 7,351 experts / 71GB 驻显存，约 8,009 / 78GB 走主机 RAM；主机 249GiB、未设 64GB cap。auto 模式引擎日志：路由专家约 149GB &gt; GPU 约 75GB，故 <b>DSpark 判定不加载</b>（验证轮多读约 3.3× token 字节，预计无收益）——该行是引擎自动判断，不是本次 A/B 结果</span>
+<b>服务边界</b><span>GPU1 原 ComfyUI / Breeze-TTS 按用户指令停止让位；GPU0 的 Qwen Strata 服务未改配置、未停止；DSpark 与 Engram 文件在 NVMe（机械盘上不可直接起服务，Engram 是随机小读）</span>
+</div></div></section>
+
+<section class="section"><div class="head"><span class="no">02</span><h2>测法（可照抄）</h2><div class="rule"></div></div>
+<div class="panel"><ol>
+<li>DSpark A/B 只改 <code>--dspark off/on</code> 一个变量；其余模型、上下文、conf 0.65、8 CPU threads、端口、GPU 完全相同。同一固定请求：输入 106 tokens、<code>temperature=0 / top_p=1 / max_tokens=512</code>、非流式；每模式先预热 1 次再连测 3 次，6 次正式请求全部 HTTP 200、<code>completion_tokens=512</code>、<code>finish_reason=length</code>。</li>
+<li>双口径分开报，不混加：<b>API 口径</b> = completion_tokens ÷ 整个非流式请求墙钟；<b>引擎口径</b> = 引擎日志生成段（每请求记 256+239=495 token）÷ 生成时间。</li>
+<li>长上下文用自造近满窗输入 240,065 tokens，在约 80% 深度埋唯一标记，取回才算 PASS；读入/生成耗时以引擎日志行为准。</li>
+<li>GPU 隔离用 进程 PID→GPU UUID + 1 秒 <code>nvidia-smi pmon</code> 采样核对物理卡；测试前后配置文件 SHA-256 一致（<code>2ddce079…a305</code>），确认已恢复 <code>--dspark auto</code>。</li>
+<li>本轮为<b>自定义探针</b>，非 Strata 官方社区 benchmark；Quick tuner 仅单轮记录，不视为基准。</li>
+</ol></div></section>
+
+<section class="section"><div class="head"><span class="no">03</span><h2>结果 A｜DSpark 三档参数对照（短输出 decode）</h2><div class="rule"></div></div>
+<div class="panel">
+<p class="note">off / on 各 3 轮均值；条形为 API 口径整次请求速率（引擎口径见下表）。</p>
+<div class="bar"><div class="blbl">--dspark off（3 轮）<small>API 口径 · T=0 · 512 tok</small></div><div class="track"><div class="fill" style="width:72.3%"></div><div class="bval">39.05 tok/s</div></div></div>
+<div class="bar"><div class="blbl">--dspark on（3 轮）<small>API 口径 · +9.5%</small></div><div class="track"><div class="fill g" style="width:79.2%"></div><div class="bval">42.77 tok/s</div></div></div>
+<table>
+<tr><th>参数档位</th><th>API 整次速率（3 轮均值）</th><th class="r">合计吞吐口径</th><th class="r">引擎 decode 段速率</th><th class="r">运行时 CPU lane 专家</th><th>判定</th></tr>
+<tr><td><b>auto</b>（当前默认）</td><td>稳定值未知——近满窗请求仅生成 9 tokens，样本太短（引擎报 28.74 tok/s）</td><td class="r flat">—</td><td class="r flat">—</td><td class="r">约 83.9GB</td><td>保持默认</td></tr>
+<tr><td><b>off</b>（显式关）</td><td><b>39.05</b> tok/s（单轮 36.97 / 39.00 / 41.17）</td><td class="r">38.97 tok/s</td><td class="r">40.13 tok/s</td><td class="r">约 91.9GB</td><td>baseline</td></tr>
+<tr><td><b>on</b>（显式开）</td><td><span class="up">42.77 tok/s（+9.5%）</span>（单轮 37.43 / 43.89 / 46.98）</td><td class="r"><span class="up">42.38（+8.8%）</span></td><td class="r"><span class="up">52.43（+30.7%）</span></td><td class="r">约 91.9GB</td><td class="dn">有希望，未定案</td></tr>
+</table>
+<p class="note" style="margin-top:12px">两个模式内部都越跑越快、on 全部排在 off 之后，系统文件缓存可能造成顺序偏差，未做交错 / A-B-A 复验；引擎 auto 与显式 off 的 CPU lane 规划不同（83.9 vs 91.9GB），不能把 off 直接当 auto。<b>结论：维持 auto，不把 +9.5% 当成已证实的长期收益。</b>预热耗时（不计入均值）：off 27.065 s / on 24.740 s。on 的证据边界：进程 argv 确认参数生效且请求通过，该版日志无「DSpark loaded」独立字样，未做内核级 profiling。</p>
+</div></section>
+
+<section class="section"><div class="head"><span class="no">04</span><h2>结果 B｜长上下文与其他实测</h2><div class="rule"></div></div>
+<div class="panel">
+<table>
+<tr><th>测试</th><th>参数/输入</th><th>结果</th><th class="r">耗时 / 速率</th></tr>
+<tr><td>短 smoke</td><td>20 prompt / 8 completion tokens</td><td>HTTP 200，精确返回 <code>MAY-NORTH-47</code> <span class="up">PASS</span></td><td class="r">3.262 s</td></tr>
+<tr><td>Quick tuner</td><td>引擎内置标准设置</td><td>13.2 tok/s（单轮记录，其内部 DSpark 对比未完成，不视为基准）</td><td class="r">13.2 tok/s</td></tr>
+<tr><td>256K 近满窗取针</td><td>240,065 prompt + 9 completion（占 262,144 的 91.6%）</td><td>HTTP 200、finish=stop，约 80% 深度埋针 <code>AMBER-CEDAR-5817</code> 准确取回 <span class="up">PASS</span></td><td class="r">墙钟 260.170 s</td></tr>
+<tr class="grp"><td colspan="4">同一请求的三段拆分（瓶颈归因）</td></tr>
+<tr><td>Prefill 读入</td><td>引擎日志 read-in 段</td><td>258.564 s 读入 240,065 tokens —— 长请求等待几乎全部花在这里</td><td class="r"><b>928.5 tok/s</b></td></tr>
+<tr><td>生成段</td><td>引擎日志 generated 9 tokens / 313 ms</td><td>引擎报告 28.74 tok/s（毫秒取整显示）；样本过短，不代表稳定 decode</td><td class="r">28.74 tok/s</td></tr>
+<tr><td>请求级总吞吐</td><td>(prompt+completion) ÷ 墙钟</td><td>prompt-dominated 数字，<b>不是 decode t/s</b>，勿与上两行混读</td><td class="r flat">≈923 tok/s</td></tr>
+</table>
+<p class="note" style="margin-top:12px">归因：长输入瓶颈是读提示词，DSpark/MTP 都缩短不了这段；短输出 decode 才有 DSpark 收益空间。当前这版 DSV41 engine 的 <code>--help</code> 无 MTP 开关、argv 也没有——模型架构有 MTP 头 ≠ 本引擎已启用 MTP。</p>
+</div></section>
+
+<section class="section"><div class="head"><span class="no">05</span><h2>限制（别直接照搬的地方）</h2><div class="rule"></div></div>
+<div class="gates">
+<div class="gate amber"><h4>L1 · 口径边界</h4><p>全部为 solo 单请求（单槽配置），并发未压测；非 Strata 官方社区 benchmark，勿与官方榜单数字直接对齐。</p></div>
+<div class="gate amber"><h4>L2 · A/B 强度</h4><p>每边仅 3 轮、off 全先于 on，存在缓存顺序偏差；结论仅为「有希望的初测」，定案需 off/on/off 交错复验。</p></div>
+<div class="gate amber"><h4>L3 · 未覆盖项</h4><p>未恰好压满 262,144 极限；无 PPL/质量对拍、无视觉与工具调用（/v1/models 只声明 text）、无长时稳定性；思考型模型 max_tokens 给小会空输出（建议 ≥512）。</p></div>
+<div class="gate amber"><h4>L4 · 机器特异性</h4><p>9950X3D 双通道内存（约 96GB/s）是 CPU lane 吞吐的物理上限；别抄我们的 threads/lane 参数——先在自己的机器跑校准，再对比社区 EPYC 多通道机型数字。GPU0 全程存在 Quick tune 瞬态约 1,078MiB 短暂映射（调优后退出），不宣称 GPU0 全程零瞬时活动。</p></div>
+</div></section>
+
+<div class="footer"><div class="frow">
+<div><h4>来源</h4><p>本机部署与实测记录（2026-10-25）：STRATA-DV41-1017-IQ2XS-GPU1-20261025.md · STRATA-DV41-DSPARK-AB-20261025.md（QuantOS2 项目 evidence，已入库）。原始响应/引擎日志/pmon 采样：Roy <code>/home/hermes/AI/tests/strata-dsv41-1017-iq2-xs-20261024/evidence/</code>。</p></div>
+<div><h4>复现</h4><p>POST http://127.0.0.1:18084/v1/chat/completions<br>model=deepseek-v4.1-flash · temperature=0 · max_tokens=512<br>A/B 只换 --dspark off/on；每边预热1+正式3；PID→GPU UUID 核对物理卡。</p></div>
+<div><h4>声明</h4><p>单位：tok/s、MiB、GiB。API 口径与引擎分段口径全程分列、未混加。测试全程无凭据外泄。数据截止：2026-10-25 19:00 CST。上游：github.com/Niko1221/Strata（release v0.2.4）。</p></div>
+</div>
+<div class="fbig">接入现状：该引擎已以独立模型名 <b>dsv41-terminal-1017</b> 注册进本地网关（NewAPI 渠道 15 → 127.0.0.1:18084），端到端会话实测 completed；旧 dsv41-1017（lsglang）与 Maya-S 条目未动。</div></div>
+</main></body></html>

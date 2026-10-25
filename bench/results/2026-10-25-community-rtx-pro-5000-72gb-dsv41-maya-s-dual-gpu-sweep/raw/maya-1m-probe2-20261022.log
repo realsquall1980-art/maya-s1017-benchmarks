@@ -1,0 +1,6 @@
+[21K] tokens≈21457 prompt=21457 completion=71 wall=15.4s  PASS
+       answer='TGT-01399'
+[120K] tokens≈127057 prompt=127057 completion=96 wall=75.8s  PASS
+       answer='TGT-09999'
+[400K] tokens≈431057 prompt=431057 completion=141 wall=274.1s  PASS
+       answer='TGT-12345'

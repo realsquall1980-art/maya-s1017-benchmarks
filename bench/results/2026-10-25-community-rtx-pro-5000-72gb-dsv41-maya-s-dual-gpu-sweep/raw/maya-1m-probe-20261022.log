@@ -1,0 +1,11 @@
+=== 1) 短问答 decode ===
+  completion=290 wall=4.21s decode≈68.9 tok/s
+=== 2) 检索针：31K ===
+[31K] prompt=21459 completion=64 wall=16.6s  prefill+decode 合计 1296 tok/s
+Traceback (most recent call last):
+  File "/tmp/maya_1m_probe.py", line 48, in <module>
+    run("31K", pr)
+  File "/tmp/maya_1m_probe.py", line 37, in run
+    print(f"        answer[:80]={txt[:80]!r}")
+                                 ~~~^^^^^
+TypeError: 'NoneType' object is not subscriptable

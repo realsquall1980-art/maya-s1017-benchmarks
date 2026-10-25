@@ -1,0 +1,73 @@
+Project Maya v1.1.20 - GLM-5.3-Flash or DeepSeek-V4.1-Flash-1017 on your own GPU(s).
+  [ok] DeepSeek-V4.1-Flash-1017's engine balances its own split and drafts with its DSpark block: nothing to tune
+
+  Speed calibration: the DSpark drafter or none? (once, for a setup that drafts with DeepSeek's DSpark drafter)
+  Drafting makes some PCs faster and others slower: it depends on how much of the model fits in the GPUs'
+  memory, and on the CPU, the RAM and the SSD. So Maya measures both here, the way you will use it. It loads
+  the model twice; each time it warms up, then writes about 1024 tokens of answers, and the sustained
+  speeds are compared. About 10-30 minutes; the PC is busy.
+  [1/2] without drafting: loading the model (it reads the experts into the GPUs' memory and RAM first) ...
+[maya] starting the engine: reading the model's weights ...
+[maya] still starting (20 s) - please wait ...
+  [1/2] without drafting: loaded in 37 s; warming up - it reads a document of 512 tokens and answers once (not counted) ...
+  [1/2] without drafting: answer 1: 384 tokens at 45.5 tokens/s - 384 of 1024 tokens measured
+  [1/2] without drafting: answer 2: 384 tokens at 46.9 tokens/s - 768 of 1024 tokens measured
+  [1/2] without drafting: answer 3: 384 tokens at 47.4 tokens/s - 1024 of 1024 tokens measured
+  [1/2] without drafting: 46.6 tokens/s sustained (1152 tokens in 25 s of writing)
+  [2/2] DSpark: loading the model (it reads the experts into the GPUs' memory and RAM first) ...
+[maya] starting the engine: reading the model's weights ...
+[maya] still starting (20 s) - please wait ...
+  [2/2] DSpark: loaded in 29 s; warming up - it reads a document of 512 tokens and answers once (not counted) ...
+  [2/2] DSpark: answer 1: 384 tokens at 73.3 tokens/s - 384 of 1024 tokens measured
+  [2/2] DSpark: answer 2: 384 tokens at 80.3 tokens/s - 768 of 1024 tokens measured
+  [2/2] DSpark: answer 3: 266 tokens at 68.9 tokens/s - 1024 of 1024 tokens measured
+  [2/2] DSpark: 74.5 tokens/s sustained (1034 tokens in 14 s of writing), 69% of the drafts accepted
+
+  [ok] speed calibration: the DSpark drafter is faster on this PC - 74.5 against 46.6 tokens/s (+60%): Maya drafts with it
+
+  ----------------------------------------------------------------------------------------------------
+  Starting deepseek-v4.1-flash (maya-ds4.json).
+  Dashboard:        http://127.0.0.1:8081/
+  API (OpenAI):     http://127.0.0.1:8081/v1        (any model name; the API key: any)
+  API (Anthropic):  http://127.0.0.1:8081/v1/messages
+  Loading takes a few minutes: the engine places the experts in VRAM by how often they are used, copies the
+  rest into RAM for its CPU lane and pins them - the first answers are the slowest.
+  Ctrl+C (or closing this terminal) stops it. Engine log: /home/hermes/AI/project-maya/maya-ds4.log
+  ----------------------------------------------------------------------------------------------------
+[maya] sampling defaults from the config: temperature=1.0, top_p=1.0
+loading the model (the first start takes a minute or two) ...
+[maya] layer split across GPUs [0, 1] (auto)
+[maya] starting the engine: reading the model's weights ...
+[maya] still starting (20 s) - please wait ...
+[maya] images: the model's vision tower runs in the engine (GPU 0, 318 MiB), up to 1024 tokens a picture
+[maya] thinking level when a request names none: high
+[maya] thinking budget: 32768 tokens (then the answer)
+ready: http://127.0.0.1:8081/v1  (OpenAI: /v1/chat/completions, /v1/responses, Anthropic: /v1/messages, context 262144 tokens, images on)
+       open http://127.0.0.1:8081/ in a browser to chat; close this window to stop the model
+[maya] thinking: 45 of max 300 tokens, 66.8 tok/s, 1 s
+[maya] thinking: 99 of max 300 tokens, 58.6 tok/s, 2 s
+[maya] answering: 155 of max 300 tokens, 57.1 tok/s, 3 s
+[maya] done: 200 tokens in 4 s (55.9 tok/s) (stop, cancel=False)
+[maya] reading the prompt: 7,536 of 7,536 tokens, 8 s so far
+[maya] thinking: 61 of max 120 tokens, 60.1 tok/s, 9 s
+[maya] done: 120 tokens in 9 s (66.7 tok/s) (length, cancel=False)
+[maya] thinking: 41 of max 250 tokens, 80.5 tok/s, 1 s
+[maya] thinking: 108 of max 250 tokens, 70.5 tok/s, 2 s
+[maya] answering: 185 of max 250 tokens, 72.8 tok/s, 3 s
+[maya] done: 250 tokens in 4 s (77.6 tok/s) (length, cancel=False)
+[maya] reading the prompt: 7,805 of 31,219 tokens, 9 s so far
+[maya] reading the prompt: 7,805 of 31,219 tokens, 10 s so far
+[maya] reading the prompt: 7,805 of 31,219 tokens, 11 s so far
+[maya] reading the prompt: 7,805 of 31,219 tokens, 12 s so far
+[maya] reading the prompt: 7,805 of 31,219 tokens, 13 s so far
+[maya] reading the prompt: 15,610 of 31,219 tokens, 14 s so far
+[maya] reading the prompt: 15,610 of 31,219 tokens, 15 s so far
+[maya] reading the prompt: 15,610 of 31,219 tokens, 16 s so far
+[maya] reading the prompt: 15,610 of 31,219 tokens, 17 s so far
+[maya] reading the prompt: 23,415 of 31,219 tokens, 18 s so far
+[maya] reading the prompt: 23,415 of 31,219 tokens, 19 s so far
+[maya] reading the prompt: 23,415 of 31,219 tokens, 20 s so far
+[maya] reading the prompt: 23,415 of 31,219 tokens, 21 s so far
+[maya] thinking: 32 of max 60 tokens, 64.0 tok/s, 22 s
+[maya] done: 54 tokens in 22 s (56.0 tok/s) (stop, cancel=False)
+[maya] stopping (the program that started it ended): the engine ends

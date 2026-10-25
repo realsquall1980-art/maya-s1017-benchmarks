@@ -1,0 +1,10 @@
+[短问答] completion=200 wall=3.67s decode=54.5 tok/s
+  answer: 
+[21K检索针] prompt=17245 wall=12.7s MISS
+  answer: 
+=== 复测 1：短问答（reasoning_effort=off）===
+completion=20 wall=0.42s decode=47.7 tok/s finish=stop
+answer: 我是DeepSeek最新版模型，上下文窗口为1M（100万tokens）。
+=== 复测 2：21K 检索针（reasoning_effort=off）===
+prompt=17219 completion=9 wall=11.9s PASS
+answer: TGT-512K-07000

@@ -1,0 +1,26 @@
+[strata] 2026-10-25 15:39:47 engine started: /home/hermes/AI/Strata-nvfp4-gptq-0.1.42/engine-dsv41/0.1.49.2-linux-x86_64-cuda-cuda13/strata-dsv41 --serve --pack /home/hermes/AI/tests/strata-dsv41-1017-iq2-xs-20261024/model-data/packs/deepseek-v4.1-flash-ist-das-2.25bpw --max-context 262144 --eos 1 --dspark on --dspark-conf 0.65 --cpu-threads 8
+ds4: tensor parallel 2 -> 1: the experts' 256-value blocks split n_ff 2304 no other way (each GPU its own layers)
+ds4: the experts VRAM leaves over (~91.5 GB) are read in place from the model's files (--mmap-experts off copies them into RAM) (133.9 GB of RAM free to keep them: the most-routed 0.0 GB read ahead; prompts in chunks of 8192)
+ds4: RAM store: up to 4218 slots of 11.4 MB (48.0 GB), policy 0, 8 reader threads, unbuffered reads
+ds4: RAM store: 3962 of the profile's hottest experts read in (36.2 GB) in 6.2 s
+ds4: CUDA0 layers [0, 42] + head: weights 6.61 GB, experts 65.12 GB (6296 of 15744 in VRAM), caches 0.24 GB, 576 MiB free
+ds4: 9448 routed experts on the CPU lane (91.9 GB, in place in the model's files), 8 threads
+maya ds4 serve: GEN <max_new> [keys] <ids>; GENI <max_new> [keys] <pictures> <ids>; STOP, QUIT
+ds4 slots: folder /home/hermes/AI/tests/strata-dsv41-1017-iq2-xs-20261024/evidence/dspark-ab/ds4-slots: 0 conversation(s) kept from earlier runs (0.00 GB)
+maya ds4 serve: prompt 31 tokens = 0 reused + 31 read in 3254 ms (9.5 tok/s), 1 generated in 0 ms (3007.90 tok/s); CPU lane 0.0% of the experts
+maya ds4 serve: prompt 106 tokens = 0 reused + 106 read in 4490 ms (23.6 tok/s), 257 generated in 9219 ms (27.88 tok/s); CPU lane 7.0% of the experts
+maya ds4 serve: drafts 109 of 142 kept; per position (kept / reached): 1: 69/79 87% 2: 29/37 78% 3: 5/8 62% 4: 3/3 100% 5: 3/3 100%
+maya ds4 serve: prompt 379 tokens = 106 reused + 273 read in 4105 ms (66.5 tok/s), 239 generated in 6923 ms (34.52 tok/s); CPU lane 5.5% of the experts
+maya ds4 serve: drafts 122 of 149 kept; per position (kept / reached): 1: 53/64 83% 2: 32/32 100% 3: 19/20 95% 4: 11/11 100% 5: 7/7 100%
+maya ds4 serve: prompt 106 tokens = 0 reused + 106 read in 2185 ms (48.5 tok/s), 256 generated in 6070 ms (42.17 tok/s); CPU lane 4.9% of the experts
+maya ds4 serve: drafts 118 of 151 kept; per position (kept / reached): 1: 68/75 91% 2: 31/37 84% 3: 9/13 69% 4: 6/6 100% 5: 4/5 80%
+maya ds4 serve: prompt 379 tokens = 362 reused + 17 read in 754 ms (22.5 tok/s), 239 generated in 4668 ms (51.20 tok/s); CPU lane 5.1% of the experts
+maya ds4 serve: drafts 123 of 134 kept; per position (kept / reached): 1: 53/57 93% 2: 34/34 100% 3: 18/21 86% 4: 12/12 100% 5: 6/7 86%
+maya ds4 serve: prompt 106 tokens = 105 reused + 1 read in 42 ms (23.7 tok/s), 256 generated in 4541 ms (56.37 tok/s); CPU lane 5.0% of the experts
+maya ds4 serve: drafts 123 of 154 kept; per position (kept / reached): 1: 71/78 91% 2: 33/38 87% 3: 9/12 75% 4: 6/6 100% 5: 4/5 80%
+maya ds4 serve: prompt 379 tokens = 106 reused + 273 read in 2438 ms (112.0 tok/s), 239 generated in 4641 ms (51.50 tok/s); CPU lane 4.5% of the experts
+maya ds4 serve: drafts 107 of 124 kept; per position (kept / reached): 1: 54/59 92% 2: 26/29 90% 3: 16/17 94% 4: 7/9 78% 5: 4/5 80%
+maya ds4 serve: prompt 106 tokens = 0 reused + 106 read in 1893 ms (56.0 tok/s), 256 generated in 4348 ms (58.88 tok/s); CPU lane 4.3% of the experts
+maya ds4 serve: drafts 118 of 147 kept; per position (kept / reached): 1: 67/74 91% 2: 31/36 86% 3: 9/11 82% 4: 7/7 100% 5: 4/5 80%
+maya ds4 serve: prompt 379 tokens = 362 reused + 17 read in 599 ms (28.4 tok/s), 239 generated in 4056 ms (58.92 tok/s); CPU lane 4.3% of the experts
+maya ds4 serve: drafts 130 of 140 kept; per position (kept / reached): 1: 64/65 98% 2: 34/36 94% 3: 16/19 84% 4: 10/10 100% 5: 6/6 100%

@@ -1,0 +1,13 @@
+== A) 端点可用性 ==
+  /health: 200
+  /v1/models: 200
+  /v1/messages/count_tokens: 404 (该服务未实现此路由，非缺陷)
+== B) 短问答（端到端，含 prefill）==
+  [短问答] prompt=43 completion=200 wall=3.93s  decode≈50.88 tok/s
+        answer[:150]='MoE（混合专家）模型是一种把大模型拆成多个“专家”子网络的架构，并由一个路由器根据输入决定调用哪些专家。对每个 token，路由器通常只选择少数几个专家进行计算并加权合并输出，而不是激活全部参数。这样可以用较低的计算成本获得更大的模型容量，但需要通过负载均衡等机制避免专家利用不均。'
+== C) 中文长文 prefill（约 6K 汉字）==
+  [长文] prompt=7536 completion=120 wall=9.32s  decode≈12.88 tok/s
+        answer[:150]='上文主题是：数据治理的核心要点包括血缘追踪、权限分级、可'
+== D) 代码类（DSpark 收益最大的负载）==
+  [代码] prompt=53 completion=250 wall=3.73s  decode≈66.95 tok/s
+        answer[:150]='```python\ndef sum_of_squares_of_evens(nums):\n    """返回整数列表中所有偶数的平方和。"""\n    return sum(x * x for x in nums if x % 2 == 0)\n```\n\n**说明：** 该函数遍历列表，用 `x % '
