@@ -1,0 +1,154 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><title>Maya-S 1017 v1.1.28 调参全记录</title>
+<style>*{box-sizing:border-box}html,body{margin:0;background:#eef1f4;color:#17202b}
+body{width:1560px;margin:0 auto;font-family:"PingFang SC","Noto Sans SC","Source Han Sans SC","Helvetica Neue",Arial,sans-serif;font-variant-numeric:tabular-nums;-webkit-font-smoothing:antialiased}
+.wrap{padding:44px 62px 40px}
+.hero{background:#172331;color:#fff;padding:44px 62px 38px}
+.eyebrow{font-size:14px;letter-spacing:.12em;color:#8fd3c4;font-weight:700}.eyebrow i{display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a98b;margin-right:9px}
+.title{font-size:40px;font-weight:850;margin:14px 0 6px;line-height:1.28}
+.subtitle{font-size:17px;color:#b9c7d4;line-height:1.58}
+.chips{margin-top:16px;display:flex;flex-wrap:wrap;gap:9px}
+.chip{background:#25384a;border:1px solid #3a5570;color:#cfe3f0;font-size:13.5px;padding:7px 13px;border-radius:9px}
+.chip b{color:#8fd3c4}
+.summary{display:grid;grid-template-columns:1.1fr 1fr 1fr;gap:15px;margin-top:24px}
+.metric{background:#fff;border:1px solid #dfe5eb;border-radius:14px;padding:22px 25px}
+.metric.primary{background:#eaf8f4;border-color:#bde7da}
+.metric.warn{background:#fff7ed;border-color:#f0d4b4}
+.metric .label{font-size:14px;letter-spacing:.04em;color:#5b6472;font-weight:700}
+.metric .num{font-size:40px;font-weight:850;margin:7px 0 4px;line-height:1.15}.metric .num small{font-size:16px;font-weight:650;color:#5b6472}
+.metric p{font-size:13.2px;color:#6c7989;line-height:1.6;margin:6px 0 0}
+.section{margin-top:30px}.head{display:flex;align-items:center;gap:14px;margin-bottom:13px}
+.no{font-size:16px;color:#17826d;font-weight:850;letter-spacing:.1em}.head h2{font-size:25px;margin:0;font-weight:800}
+.rule{height:1px;background:#d7dee5;flex:1}
+.panel{background:#fff;border:1px solid #dfe5eb;border-radius:13px;padding:20px 24px}
+table{width:100%;border-collapse:collapse;font-size:14.3px}
+th{text-align:left;font-size:12.6px;color:#5b6472;border-bottom:2px solid #d7dee5;padding:8px 9px;letter-spacing:.02em}
+td{padding:8.5px 9px;border-bottom:1px solid #edf0f3;vertical-align:top}
+tr:nth-child(even) td{background:#fafbfc}
+td.r,th.r{text-align:right}
+.up{color:#0f7a3d;font-weight:800}.dn{color:#b45309;font-weight:700}.flat{color:#5b6472}
+.grp td{background:#eef4f8!important;font-weight:800;color:#234058;font-size:13.4px}
+.bar{margin:9px 0 14px;display:flex;align-items:center;gap:13px}
+.blbl{width:262px;text-align:right;font-size:14px;font-weight:700;color:#233240;line-height:1.3}
+.blbl small{display:block;font-weight:400;color:#748192;font-size:11.6px}
+.track{position:relative;background:#eef1f4;border-radius:5px;height:20px;flex:1}
+.fill{height:100%;border-radius:5px;background:#9fb3c8}.fill.g{background:#28a98b}.fill.o{background:#c2410c}
+.bval{width:150px;flex-shrink:0;text-align:right;font-size:12.6px;line-height:20px;color:#233240;font-weight:800}
+.note{font-size:13.2px;color:#6c7989;line-height:1.65;margin:0 0 10px}
+.kv{display:grid;grid-template-columns:190px 1fr;gap:6px 15px;font-size:14px}
+.kv b{color:#233240}.kv span{color:#42505f}
+pre{background:#0f1922;color:#c9dbe8;border-radius:10px;padding:14px 16px;font-size:12.2px;line-height:1.55;overflow-wrap:anywhere;white-space:pre-wrap;font-family:ui-monospace,Menlo,monospace}
+.gates{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+.gate{background:#fff;border:1px solid #dfe5eb;border-left:4px solid #28a98b;border-radius:10px;padding:14px 17px}
+.gate.amber{border-left-color:#c2410c}
+.gate h4{margin:0 0 4px;font-size:15px}.gate p{margin:0;font-size:12.6px;color:#66727f;line-height:1.58}
+ol,ul{margin:5px 0;padding-left:21px;font-size:14px;color:#3c4956;line-height:1.7}
+code{font-family:ui-monospace,Menlo,monospace;font-size:.92em}
+.footer{margin-top:30px;background:#172331;color:#bfccd7;border-radius:13px;padding:20px 24px}
+.frow{display:grid;grid-template-columns:1.15fr 1fr 1.1fr;gap:22px}
+.footer h4{color:#eff5f8;font-size:13px;margin:0 0 7px;letter-spacing:.07em}
+.footer p{font-size:12px;line-height:1.62;margin:0;color:#aebbca}
+.fbig{margin-top:12px;border-top:1px solid #2b3d4f;padding-top:11px;font-size:12px;color:#8fa1b3;line-height:1.6}</style></head><body>
+<header class="hero">
+  <div class="eyebrow"><i></i>LOCAL INFERENCE · DUAL GPU LAYER-SPLIT · PROJECT MAYA · 2026-10-27 · LINUX / CUDA 13 · v1.1.28 TUNING SWEEP</div>
+  <div class="title">双 72GB 卡跑 DeepSeek-V4.1-Flash-1017：Maya-S 调参全记录<br>真 TP2 为什么减半、chunk 16384 拐点与三个开关的裁定</div>
+  <div class="subtitle">Project Maya v1.1.28 自编译 · 两卡层切 · 14 组配置 · prefill 取引擎日志新鲜读（0 reused）· decode 交错对拍 · 检索针 + 15 题电池 + PPL 三件套</div>
+  <div class="chips">
+    <div class="chip">引擎 <b>v1.1.28</b>（6afa525，build-1128，sm_120）</div>
+    <div class="chip">GPU <b>RTX PRO 5000 72GB ×2</b>（层切 0–18 / 19–39+头）</div>
+    <div class="chip">CPU <b>Ryzen 9 9950X3D</b> · DDR5-6000 249GiB · 16 线程 offload</div>
+    <div class="chip">权重 <b>Maya-S pack 348.4GB</b> · 18/18 SHA256 全过</div>
+    <div class="chip">端点 <b>127.0.0.1:8081</b> · 512K 上下文 · dspark on</div>
+  </div>
+</header>
+<main class="wrap">
+
+<div class="summary">
+  <div class="metric primary"><div class="label">prefill 相对旧生产（v1.1.20）</div>
+    <div class="num">×2.4–2.5 <small>42–44K 提示词</small></div>
+    <p>1,587–1,638 → <b>3,940–4,007 tok/s</b>，引擎日志新鲜读。提升来自「层切 + chunk 16384 + PROMPT_SKIP=2」，不是换卡、不是加卡。</p></div>
+  <div class="metric"><div class="label">代码类 decode（热）</div>
+    <div class="num">77.6 → 145–162 <small>tok/s</small></div>
+    <p>×1.9–2.1。真 TP2 只能到 118.6；回到层切立刻 133–142，说明瓶颈在专家驻留与搬运，不在并行度。</p></div>
+  <div class="metric warn"><div class="label">每 42K 提示词的流式字节（两卡合计）</div>
+    <div class="num">131.9 → 45.3 <small>GB · −66%</small></div>
+    <p>真 TP2 把专家劈半，能完整驻留的专家更少；层切 + chunk 16384 把流式搬运砍到三分之一。</p></div>
+</div>
+
+<section class="section"><div class="head"><span class="no">01</span><h2>终选配置（与在跑服务逐字一致）</h2><div class="rule"></div></div>
+<div class="panel"><div class="kv">
+<b>启动参数</b><span><pre style="margin:0">--pack .../Maya-S/maya-ds4 --max-context 524288 --tp 1 --prefill-chunk 16384 --dspark on --mmap-experts auto --vision on
+env: STRATA_DS4_PROMPT_SKIP=2  STRATA_DS4_Q8_BATCH=1  STRATA_DS4_SLOT_KEEP=1 STRATA_DS4_KEEP_THINKING=1  DS4_PREFILL_STATS=1</pre></span>
+<b>驻留 / 显存</b><span>CUDA0 5,548/7,680 (72.2%), CUDA1 5,879/8,064 (72.9%)；4,317 experts / 47.6 GB in RAM, 16 threads；每卡余量 583 / 584 MiB；显存占用约 72.3GB/卡</span>
+<b>窗口与采样</b><span>max_context 524288 · temperature 1.0 / top_p 1.0 · reasoning high · vision on（视觉塔占 GPU0 318MiB）</span>
+<b>互斥</b><span>Maya 独占两卡：起服前须停 Strata 视觉栈（:18083）、ComfyUI（:8188）、Breeze-TTS（:8002）、dsx（:8090）；手动启停、无开机自启</span>
+</div></div></section>
+
+<section class="section"><div class="head"><span class="no">02</span><h2>结果｜prefill 天梯（14 组里的 8 个关键点）</h2><div class="rule"></div></div>
+<div class="panel">
+<p class="note">条长按高值；灰 = 旧版/无差项，橙 = 回退项，绿 = 终选。单位 tok/s，42–44K 提示词、<code>0 reused</code>。</p>
+<div class="bar"><div class="blbl">旧生产 v1.1.20 · 层切 chunk 8192<small>基线 77.6 decode</small></div><div class="track"><div class="fill" style="width:39.0%"></div></div><div class="bval">1,587–1,638 tok/s</div></div>
+<div class="bar"><div class="blbl">v1.1.28 真 TP2 · chunk 8192<small>流式 131.9GB · 撤销</small></div><div class="track"><div class="fill o" style="width:34.5%"></div></div><div class="bval">1,402–1,449 tok/s</div></div>
+<div class="bar"><div class="blbl">层切（--tp 1）· chunk 8192<small>流式 63.5GB</small></div><div class="track"><div class="fill" style="width:80.3%"></div></div><div class="bval">3,268–3,372 tok/s</div></div>
+<div class="bar"><div class="blbl">层切 · chunk 16384<small>流式 45.3GB · 终选基线</small></div><div class="track"><div class="fill" style="width:88.6%"></div></div><div class="bval">3,638–3,722 tok/s</div></div>
+<div class="bar"><div class="blbl">层切 · chunk 32768<small>驻留掉到 67.7% · 回退</small></div><div class="track"><div class="fill o" style="width:86.0%"></div></div><div class="bval">3,611 tok/s</div></div>
+<div class="bar"><div class="blbl">显式 DS4_SPLIT=20,20<small>引擎自动 19/21 更优</small></div><div class="track"><div class="fill o" style="width:84.1%"></div></div><div class="bval">3,477–3,532 tok/s</div></div>
+<div class="bar"><div class="blbl">上下文 256K<small>KV 只省 0.14GB/卡</small></div><div class="track"><div class="fill" style="width:87.8%"></div></div><div class="bval">3,661–3,688 tok/s</div></div>
+<div class="bar"><div class="blbl" style="font-weight:800;color:#0f7a3d">+ PROMPT_SKIP=2（终选）<small>decode 不变 · 召回 9/9</small></div><div class="track"><div class="fill g" style="width:95.4%"></div></div><div class="bval">3,939–4,007 tok/s</div></div>
+<p class="note" style="margin-top:10px">读法：<b>真 TP2 把 prefill 打到 1,402–1,449</b>（比旧生产还低 11%）——两卡固定容量下它让「完整专家」变少、流式字节翻倍。换回层切直接 ×2.3；chunk 8192→16384 再 +8~11%；32768 反而回退（激活值挤掉 6–7% 驻留）。</p>
+</div></section>
+
+<section class="section"><div class="head"><span class="no">03</span><h2>开关裁定表（每个都是同机、同提示词、单变量）</h2><div class="rule"></div></div>
+<div class="panel">
+<table>
+<tr><th>开关 / 变动</th><th class="r">prefill 42–44K</th><th class="r">decode 代码（热）</th><th>裁定</th></tr>
+<tr><td>层切 → 真 TP2（UNEVEN + FLOW_TP）</td><td class="r"><b>1,402–1,449</b></td><td class="r">118.6</td><td class="dn">撤销：prefill −11%，流式 131.9GB</td></tr>
+<tr><td>--prefill-chunk 8192 → 16384</td><td class="r"><b>3,638–3,722</b></td><td class="r">145.7–155.2</td><td class="up">+8~11%，流式 63.5→45.3GB</td></tr>
+<tr><td>--prefill-chunk → 32768</td><td class="r">3,611</td><td class="r">112.9</td><td class="dn">回退：驻留 72.2→67.7%</td></tr>
+<tr><td>显式 DS4_SPLIT=19,21 = 引擎自动</td><td class="r">3,659–3,689</td><td class="r">137.5–155.0</td><td class="up">等价（证明自动分卡已最优）</td></tr>
+<tr><td>显式 DS4_SPLIT=20,20</td><td class="r">3,477–3,532</td><td class="r">128–159</td><td class="dn">−4%，不要手工均分</td></tr>
+<tr><td>DS4_FAT_ROWS=128</td><td class="r">3,641</td><td class="r">124.1–131.7</td><td class="flat">无效（默认 64 已覆盖）</td></tr>
+<tr><td>REQUIRE_ALL_RAM + mmap off</td><td class="r">3,630–3,675</td><td class="r">131–152</td><td class="flat">无差：auto 已全拷 4,317 专家</td></tr>
+<tr><td>上下文 512K → 256K</td><td class="r">3,661–3,688</td><td class="r">132–157</td><td class="dn">无收益，白丢窗口</td></tr>
+<tr><td>Q8_BATCH=1</td><td class="r">3,693–3,722</td><td class="r">156.7–157.6</td><td class="up">逐位相同，安全保留</td></tr>
+<tr><td>PROMPT_SKIP=2（终选）</td><td class="r"><b>3,939–4,007</b></td><td class="r">157.3–157.8</td><td class="up">+6~8%；decode 不变</td></tr>
+<tr><td>RAM_SKIP_W=0.10 / 0.14</td><td class="r">3,708–3,737</td><td class="r">156–162</td><td class="dn">0 收益 + 质量风险，弃用</td></tr>
+</table>
+</div></section>
+
+<section class="section"><div class="head"><span class="no">04</span><h2>质量门｜哪些工具能信、哪些是假阴性</h2><div class="rule"></div></div>
+<div class="panel">
+<table>
+<tr><th>工具</th><th>本次实测结果</th><th class="r">可用性</th></tr>
+<tr><td>离线 --ppl（6 段中英文）</td><td>基线两次逐位相同；但 RAM_SKIP_W=0.50、YOCO=0/2 一字不变，ATTN_MMA=0 全变</td><td class="r dn">假阴性</td></tr>
+<tr><td>15 题精确答案电池</td><td>所有条件 14/15；唯一错是判分器不认下标 H₂O</td><td class="r up">下限门</td></tr>
+<tr><td>三深度检索针（44K：开头/正中/尾部 × 3 种子）</td><td>精确档与 PROMPT_SKIP=2 均 9/9；124K 针答对</td><td class="r up">有效</td></tr>
+<tr><td>固定 seed 文本相似度</td><td>基线自身三次仅 0.318–0.417（温度 0 在 MoE 下不确定）</td><td class="r dn">不可用</td></tr>
+</table>
+<p class="note" style="margin-top:10px">关键陷阱：<b>只问「最后一条」是假通过</b>——PROMPT_SKIP=2 保留的正是尾部 128 行。必须把标记埋在开头与中段；本轮已按此重测，精确档与短接档同为 9/9。</p>
+</div></section>
+
+<section class="section"><div class="head"><span class="no">05</span><h2>方法学｜三处会产出假数字的地方</h2><div class="rule"></div></div>
+<div class="gates">
+<div class="gate"><h4>① decode 顺序跑会造假</h4><p>同序列后测的档更快（冷首条 125–135，末轮 153–162，漂移 ±20%）。必须 A→B→A 交错、每轮独立重启；交错后 PROMPT_SKIP 的 decode 差 ≤1%。</p></div>
+<div class="gate"><h4>② 会话缓存让「冷读」变假</h4><p>SLOT_KEEP=1 时引擎退出会把会话写回 slots/。先删目录再停进程 → 测出 0.5 秒读完 44K 的假冷读。顺序必须是：停 unit → 清 slots → 起服务。</p></div>
+<div class="gate"><h4>③ 开关名字写错会静默失效</h4><p>直连引擎二进制只认 STRATA_DS4_*；MAYA_DS4_* 由服务端别名层转换。第一轮 PPL 全部「无差异」的真因就是这个。</p></div>
+<div class="gate"><h4>④ 小 prompt 不是能力上限</h4><p>51 token 的请求只有 90–200 tok/s（固定开销占大头）；判 prefill 只看 ≥2K、尤其 42K/124K 的 0 reused 行。</p></div>
+</div></section>
+
+<section class="section"><div class="head"><span class="no">06</span><h2>限制（别直接照搬的地方）</h2><div class="rule"></div></div>
+<div class="gates">
+<div class="gate amber"><h4>L1 · 快速对照 ≠ 统计 A/B</h4><p>每条件 1 次启动、2×42K + 3 代码 + 3 散文 + 15 题；终选结构累计 6 次启动（3,638–3,722，±1.4%），±3% 内一律判噪声。</p></div>
+<div class="gate amber"><h4>L2 · solo 单轮</h4><p>全部 0 reused、单请求；未测并发（--parallel&gt;1）、多轮 KV 复用、视觉、工具调用；非公开榜单基准。</p></div>
+<div class="gate amber"><h4>L3 · 未压满窗</h4><p>本轮最长 124–131K；512K/1M 见 10-22 报告。YaRN×16 外推下「读得到」≠「与 64K 内同等锐利」。</p></div>
+<div class="gate amber"><h4>L4 · PROMPT_SKIP 的文风风险未量化</h4><p>事实召回与短答正确性有证据；长文措辞可复现性没有证据，上游也写明 answers shift a little。要逐字可复现 → 切 exact 档。</p></div>
+<div class="gate amber"><h4>L5 · 机器特异</h4><p>9950X3D 双通道 DDR5 决定 offload 上限；要抄的是旋钮顺序，不是驻留数字，先在自己的机器上跑校准。</p></div>
+<div class="gate amber"><h4>L6 · 未跑上游标准协议</h4><p>strata bench / --report 未用；DSpark 增益来自 v1.1.20 校准，未在 1.1.28 重测。</p></div>
+</div></section>
+
+<div class="footer"><div class="frow">
+<div><h4>来源</h4><p>本机实测，QuantOS2 项目 evidence 已入库：MAYA-S-PREFILL-RECOVERY-20261027.md · MAYA-S-TUNING-FINAL-20261027.md · MAYA-S-OPTIN-SWITCHES-20261027.md · MAYA-S-SKIP2-IMPACT-20261027.md · MAYA-S-CONTEXT-3WAY-20261022.md；原始引擎日志见本条目 raw/。</p></div>
+<div><h4>复现</h4><p>POST http://127.0.0.1:8081/v1/chat/completions（temp 1.0 / top_p 1.0 / reasoning high）。结构对照一次只改一个旋钮；decode 交错 A→B→A；质量门三件套见报告。</p></div>
+<div><h4>声明</h4><p>单位 tok/s、GB（十进制）、MiB。数字由 data/summary.json 生成，报告与海报同源。全程无凭据外泄。数据截止：2026-10-27 13:03 CST 现场读回。</p></div>
+</div>
+<div class="fbig">状态：本条目记录的是<b>当前在跑的生产配置</b>（unit maya-final，engine 1.1.28）。可回滚档位：./run-1128.sh exact（精确档）、./run-1128.sh baseline（v1.1.20 旧生产）。Maya 与出图/视觉栈互斥，切换须走两卡租约。</div></div>
+</main></body></html>

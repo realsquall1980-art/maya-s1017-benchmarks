@@ -1,0 +1,103 @@
+ds4: the one-GPU decode path (in-place pulls, windows streamed, landings): off (v1.1.27's path: not Linux + NVIDIA + one GPU)
+ds4: the experts VRAM leaves over (~46.3 GB) are read in place from the model's files (copied into RAM after the GPUs' share when the RAM holds them all; --mmap-experts on keeps them in place) (238.8 GB of RAM free to keep them: the most-routed 46.3 GB read ahead; prompts in chunks of 32768)
+ds4: --mmap-experts auto: the CPU lane's experts (47.2 GB) fit the RAM this process can get (231.0 GB): copied into RAM (--mmap-experts on keeps them in the files)
+ds4: 4248 of the CPU lane's 4248 experts copied into RAM (46.8 GB, 1 NUMA part) in 2.5 s
+ds4: CUDA0 layers [0, 19]: weights 4.05 GB, experts 61.02 GB (5527 of 7680 in VRAM), caches 0.29 GB, 583 MiB free
+ds4: CUDA1 layers [20, 39] + head: weights 4.42 GB, experts 61.67 GB (5585 of 7680 in VRAM), caches 0.19 GB, 580 MiB free
+ds4: 4248 routed experts on the CPU lane (46.8 GB): 4248 copied into RAM (1 NUMA parts), the rest in place in the model's files; 16 threads
+maya ds4 serve: GEN <max_new> [keys] <ids>; GENI <max_new> [keys] <pictures> <ids>; STOP, QUIT
+ds4 slots: folder /home/hermes/AI/Maya-data/models/DeepSeek-V4.1-Flash-1017-GGUF/Maya-S/maya-ds4/slots: 0 conversation(s) kept from earlier runs (0.00 GB), 3 not this model's or incomplete - removed
+maya ds4 serve: prompt 558 tokens = 0 reused + 558 read in 3146 ms (177.3 tok/s), 128 generated in 2292 ms (55.86 tok/s); CPU lane 6.2% of the experts
+ds4: CUDA0 prompt attention on the tensor cores (sm_120)
+ds4: CUDA0 busy experts (64 rows or more) as FP16 GEMMs, 1024 rows a piece, FFN up to 2304 (77 MB)
+DS4_PREFILL gpu=0 tokens=554 chunk=32768 expert_row_picks=66480 vram_row_picks=64454 unique_expert_uses=5034 vram_unique_expert_uses=4379 streamed_weight_bytes=8318914560
+ds4: CUDA1 prompt attention on the tensor cores (sm_120)
+ds4: CUDA1 busy experts (64 rows or more) as FP16 GEMMs, 1024 rows a piece, FFN up to 2304 (77 MB)
+DS4_PREFILL gpu=1 tokens=554 chunk=32768 expert_row_picks=66480 vram_row_picks=63702 unique_expert_uses=4944 vram_unique_expert_uses=4219 streamed_weight_bytes=8639447040
+maya ds4 serve: prompt 554 tokens = 0 reused + 554 read in 1506 ms (367.8 tok/s), 384 generated in 6515 ms (58.94 tok/s); CPU lane 0.7% of the experts
+DS4_PREFILL gpu=0 tokens=565 chunk=32768 expert_row_picks=67800 vram_row_picks=66097 unique_expert_uses=5130 vram_unique_expert_uses=4550 streamed_weight_bytes=7392337920
+DS4_PREFILL gpu=1 tokens=565 chunk=32768 expert_row_picks=67800 vram_row_picks=65720 unique_expert_uses=5008 vram_unique_expert_uses=4416 streamed_weight_bytes=7238707200
+maya ds4 serve: prompt 565 tokens = 0 reused + 565 read in 1356 ms (416.7 tok/s), 384 generated in 6381 ms (60.18 tok/s); CPU lane 0.5% of the experts
+DS4_PREFILL gpu=0 tokens=563 chunk=32768 expert_row_picks=67560 vram_row_picks=66256 unique_expert_uses=5138 vram_unique_expert_uses=4580 streamed_weight_bytes=7135027200
+DS4_PREFILL gpu=1 tokens=563 chunk=32768 expert_row_picks=67560 vram_row_picks=65786 unique_expert_uses=5055 vram_unique_expert_uses=4513 streamed_weight_bytes=6558842880
+maya ds4 serve: prompt 563 tokens = 0 reused + 563 read in 1355 ms (415.5 tok/s), 384 generated in 6332 ms (60.65 tok/s); CPU lane 0.4% of the experts
+ds4: the one-GPU decode path (in-place pulls, windows streamed, landings): off (v1.1.27's path: not Linux + NVIDIA + one GPU)
+ds4: the experts VRAM leaves over (~54.4 GB) are read in place from the model's files (copied into RAM after the GPUs' share when the RAM holds them all; --mmap-experts on keeps them in place) (238.8 GB of RAM free to keep them: the most-routed 54.4 GB read ahead; prompts in chunks of 32768)
+ds4: --mmap-experts auto: the CPU lane's experts (55.3 GB) fit the RAM this process can get (230.9 GB): copied into RAM (--mmap-experts on keeps them in the files)
+ds4: 4984 of the CPU lane's 4984 experts copied into RAM (54.9 GB, 1 NUMA part) in 3.2 s
+ds4: CUDA0 layers [0, 42]: weights 4.48 GB, experts 60.54 GB (5203 of 7680 in VRAM), caches 0.29 GB, 571 MiB free
+ds4: CUDA1 layers [19, 39] + head: weights 4.73 GB, experts 61.24 GB (5557 of 8064 in VRAM), caches 0.27 GB, 572 MiB free
+ds4: 4984 routed experts on the CPU lane (54.9 GB): 4984 copied into RAM (1 NUMA parts), the rest in place in the model's files; 16 threads
+maya ds4 serve: GEN <max_new> [keys] <ids>; GENI <max_new> [keys] <pictures> <ids>; STOP, QUIT
+ds4 slots: folder /home/hermes/AI/Maya-data/models/DeepSeek-V4.1-Flash-1017-GGUF/Maya-S/maya-ds4/slots: 0 conversation(s) kept from earlier runs (0.00 GB)
+maya ds4 serve: prompt 558 tokens = 0 reused + 558 read in 3302 ms (169.0 tok/s), 128 generated in 1672 ms (76.54 tok/s); CPU lane 8.6% of the experts
+maya ds4 serve: drafts 72 of 95 kept; per position (kept / reached): 1: 33/47 70% 2: 20/25 80% 3: 9/9 100% 4: 6/6 100% 5: 4/4 100%
+ds4: CUDA0 prompt attention on the tensor cores (sm_120)
+ds4: CUDA0 busy experts (64 rows or more) as FP16 GEMMs, 1024 rows a piece, FFN up to 2304 (77 MB)
+DS4_PREFILL gpu=0 tokens=554 chunk=32768 expert_row_picks=63156 vram_row_picks=60319 unique_expert_uses=4748 vram_unique_expert_uses=3913 streamed_weight_bytes=9674588160
+ds4: CUDA1 prompt attention on the tensor cores (sm_120)
+ds4: CUDA1 busy experts (64 rows or more) as FP16 GEMMs, 1024 rows a piece, FFN up to 2304 (77 MB)
+DS4_PREFILL gpu=1 tokens=554 chunk=32768 expert_row_picks=69804 vram_row_picks=64876 unique_expert_uses=5207 vram_unique_expert_uses=4178 streamed_weight_bytes=11799889920
+maya ds4 serve: prompt 554 tokens = 0 reused + 554 read in 1859 ms (298.0 tok/s), 384 generated in 4359 ms (88.09 tok/s); CPU lane 1.3% of the experts
+maya ds4 serve: drafts 220 of 294 kept; per position (kept / reached): 1: 96/136 71% 2: 56/64 88% 3: 33/38 87% 4: 20/22 91% 5: 15/18 83%
+DS4_PREFILL gpu=0 tokens=565 chunk=32768 expert_row_picks=64410 vram_row_picks=62651 unique_expert_uses=4819 vram_unique_expert_uses=4063 streamed_weight_bytes=8846991360
+DS4_PREFILL gpu=1 tokens=565 chunk=32768 expert_row_picks=71190 vram_row_picks=68380 unique_expert_uses=5318 vram_unique_expert_uses=4494 streamed_weight_bytes=9656616960
+maya ds4 serve: prompt 565 tokens = 0 reused + 565 read in 1558 ms (362.7 tok/s), 384 generated in 4464 ms (86.01 tok/s); CPU lane 0.6% of the experts
+maya ds4 serve: drafts 202 of 286 kept; per position (kept / reached): 1: 100/147 68% 2: 53/66 80% 3: 24/28 86% 4: 17/18 94% 5: 8/8 100%
+DS4_PREFILL gpu=0 tokens=563 chunk=32768 expert_row_picks=64182 vram_row_picks=62512 unique_expert_uses=4855 vram_unique_expert_uses=4075 streamed_weight_bytes=9089372160
+DS4_PREFILL gpu=1 tokens=563 chunk=32768 expert_row_picks=70938 vram_row_picks=68764 unique_expert_uses=5365 vram_unique_expert_uses=4629 streamed_weight_bytes=8810127360
+maya ds4 serve: prompt 563 tokens = 0 reused + 563 read in 1559 ms (361.2 tok/s), 384 generated in 4156 ms (92.40 tok/s); CPU lane 0.5% of the experts
+maya ds4 serve: drafts 223 of 319 kept; per position (kept / reached): 1: 102/151 68% 2: 58/72 81% 3: 30/39 77% 4: 19/22 86% 5: 14/15 93%
+[maya] sampling defaults from the config: temperature=1.0, top_p=1.0
+loading the model (the first start takes a minute or two) ...
+[maya] layer split across GPUs [0, 1] (auto)
+[maya] starting the engine: reading the model's weights ...
+ds4: the one-GPU decode path (in-place pulls, windows streamed, landings): off (v1.1.27's path: not Linux + NVIDIA + one GPU)
+ds4: the experts VRAM leaves over (~54.4 GB) are read in place from the model's files (copied into RAM after the GPUs' share when the RAM holds them all; --mmap-experts on keeps them in place) (239.1 GB of RAM free to keep them: the most-routed 54.4 GB read ahead; prompts in chunks of 32768)
+[maya] still starting (20 s) - please wait ...
+ds4: --mmap-experts auto: the CPU lane's experts (55.3 GB) fit the RAM this process can get (230.5 GB): copied into RAM (--mmap-experts on keeps them in the files)
+ds4: 4984 of the CPU lane's 4984 experts copied into RAM (54.9 GB, 1 NUMA part) in 2.9 s
+ds4: CUDA0 layers [0, 42]: weights 4.48 GB, experts 60.54 GB (5203 of 7680 in VRAM), caches 0.29 GB, 571 MiB free
+ds4: CUDA1 layers [19, 39] + head: weights 4.73 GB, experts 61.24 GB (5557 of 8064 in VRAM), caches 0.27 GB, 572 MiB free
+ds4: 4984 routed experts on the CPU lane (54.9 GB): 4984 copied into RAM (1 NUMA parts), the rest in place in the model's files; 16 threads
+maya ds4 serve: GEN <max_new> [keys] <ids>; GENI <max_new> [keys] <pictures> <ids>; STOP, QUIT
+ds4 slots: folder /home/hermes/AI/Maya-data/models/DeepSeek-V4.1-Flash-1017-GGUF/Maya-S/maya-ds4/slots: 0 conversation(s) kept from earlier runs (0.00 GB)
+[maya] images: the model's vision tower runs in the engine (GPU 0, 318 MiB), up to 1024 tokens a picture
+[maya] thinking level when a request names none: high
+[maya] thinking budget: 32768 tokens (then the answer)
+ready: http://127.0.0.1:8081/v1  (OpenAI: /v1/chat/completions, /v1/responses, Anthropic: /v1/messages, context 524288 tokens, images on)
+       open http://127.0.0.1:8081/ in a browser to chat; close this window to stop the model
+[maya] sessions: folder /home/hermes/AI/Maya-data/models/DeepSeek-V4.1-Flash-1017-GGUF/Maya-S/maya-ds4/slots: 0 conversation(s) kept from earlier runs (0.00 GB)
+ds4: CUDA0 prompt attention on the tensor cores (sm_120)
+ds4: CUDA0 busy experts (64 rows or more) as FP16 GEMMs, 1024 rows a piece, FFN up to 2304 (77 MB)
+ds4: CUDA1 prompt attention on the tensor cores (sm_120)
+ds4: CUDA1 busy experts (64 rows or more) as FP16 GEMMs, 1024 rows a piece, FFN up to 2304 (77 MB)
+[maya] reading the prompt: 20,981 of 41,962 tokens, 6 s so far
+[maya] reading the prompt: 20,981 of 41,962 tokens, 7 s so far
+[maya] reading the prompt: 20,981 of 41,962 tokens, 8 s so far
+[maya] reading the prompt: 20,981 of 41,962 tokens, 9 s so far
+[maya] reading the prompt: 20,981 of 41,962 tokens, 10 s so far
+DS4_PREFILL gpu=0 tokens=41962 chunk=32768 expert_row_picks=4783668 vram_row_picks=4060293 unique_expert_uses=8967 vram_unique_expert_uses=6387 streamed_weight_bytes=28694292480
+[maya] reading the prompt: 20,981 of 41,962 tokens, 11 s so far
+[maya] reading the prompt: 20,981 of 41,962 tokens, 12 s so far
+DS4_PREFILL gpu=1 tokens=41962 chunk=32768 expert_row_picks=571932 vram_row_picks=525733 unique_expert_uses=5097 vram_unique_expert_uses=4012 streamed_weight_bytes=12467865600
+[maya] thinking reached its budget (1 tokens): closed, answering
+maya ds4 serve: prompt 41962 tokens = 0 reused + 41962 read in 11622 ms (3610.6 tok/s), 16 generated in 250 ms (64.06 tok/s); CPU lane 0.0% of the experts
+maya ds4 serve: drafts 8 of 9 kept; per position (kept / reached): 1: 4/4 100% 2: 3/3 100% 3: 1/1 100% 4: 0/1 0%
+[maya] done: 16 tokens in 12 s (64.1 tok/s) (stop, cancel=False), expert cache 89.7% hit
+ds4 slots: saved a 41978-token conversation (0.05 GB in RAM in 0.0 s); 1 in RAM, 0 in /home/hermes/AI/Maya-data/models/DeepSeek-V4.1-Flash-1017-GGUF/Maya-S/maya-ds4/slots
+[maya] sessions: saved a 41978-token conversation (0.05 GB in RAM in 0.0 s); 1 in RAM, 0 in /home/hermes/AI/Maya-data/models/DeepSeek-V4.1-Flash-1017-GGUF/Maya-S/maya-ds4/slots
+[maya] thinking reached its budget (1 tokens): closed, answering
+[maya] answering: 64 of max 700 tokens, 97.8 tok/s, 1 s
+[maya] answering: 176 of max 700 tokens, 105.7 tok/s, 2 s
+[maya] answering: 287 of max 700 tokens, 107.4 tok/s, 3 s
+[maya] answering: 418 of max 700 tokens, 113.2 tok/s, 4 s
+[maya] answering: 556 of max 700 tokens, 117.5 tok/s, 5 s
+[maya] answering: 689 of max 700 tokens, 119.8 tok/s, 6 s
+maya ds4 serve: prompt 51 tokens = 0 reused + 51 read in 364 ms (140.2 tok/s), 700 generated in 5825 ms (120.17 tok/s); CPU lane 8.9% of the experts
+maya ds4 serve: drafts 557 of 619 kept; per position (kept / reached): 1: 136/140 97% 2: 123/131 94% 3: 110/113 97% 4: 99/106 93% 5: 89/92 97%
+[maya] done: 700 tokens in 6 s (120.2 tok/s) (length, cancel=False), expert cache 91.3% hit
+[maya] stopping (SIGTERM): the engine ends
+ds4 slots: wrote 1 conversation(s) to /home/hermes/AI/Maya-data/models/DeepSeek-V4.1-Flash-1017-GGUF/Maya-S/maya-ds4/slots; 1 there in all
+[maya] sessions: wrote 1 conversation(s) to /home/hermes/AI/Maya-data/models/DeepSeek-V4.1-Flash-1017-GGUF/Maya-S/maya-ds4/slots; 1 there in all
+[maya] the GPU readings' NVML reader stopped (its pipe broke ([Errno 32] Broken pipe)); starting it again

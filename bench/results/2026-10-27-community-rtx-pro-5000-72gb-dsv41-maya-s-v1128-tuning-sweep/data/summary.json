@@ -1,0 +1,228 @@
+{
+  "hardware": {
+    "gpu": "2x NVIDIA RTX PRO 5000 72GB (Blackwell), 73,415 MiB each",
+    "driver": "595.91.07",
+    "cpu": "AMD Ryzen 9 9950X3D",
+    "ram": "249 GiB DDR5-6000 (dual-channel)",
+    "os": "Ubuntu 24.04, CUDA 13.0",
+    "engine": "Project Maya v1.1.28 (commit 6afa525), build-1128/maya-ds4, sm_120",
+    "pack": "Maya-S pack 348.4 GB, 25 files, 18/18 SHA-256 checks passed"
+  },
+  "final": {
+    "args": "--pack .../Maya-S/maya-ds4 --max-context 524288 --tp 1 --prefill-chunk 16384 --dspark on --mmap-experts auto --vision on",
+    "env": "STRATA_DS4_PROMPT_SKIP=2  STRATA_DS4_Q8_BATCH=1  STRATA_DS4_SLOT_KEEP=1 STRATA_DS4_KEEP_THINKING=1  DS4_PREFILL_STATS=1",
+    "residency": "CUDA0 5,548/7,680 (72.2%), CUDA1 5,879/8,064 (72.9%)",
+    "cpu_lane": "4,317 experts / 47.6 GB in RAM, 16 threads",
+    "prefill": "3,940-4,007 tok/s @42-44K; 3,708 @124K",
+    "decode": "157-162 tok/s (code, warm); 68-71 (prose)"
+  },
+  "rounds": [
+    {
+      "id": "R0",
+      "zh": "v1.1.20 层切 · chunk 8192（旧生产）",
+      "en": "v1.1.20 layer split, chunk 8192 (old production)",
+      "pf": "1,587-1,638",
+      "pf124": "1,626",
+      "dc": "77.6",
+      "dp": "55.9-77.6",
+      "res": "77.4%",
+      "stream": "-",
+      "verdict_zh": "基线",
+      "verdict_en": "baseline"
+    },
+    {
+      "id": "R1",
+      "zh": "v1.1.28 真 TP2 · chunk 8192",
+      "en": "v1.1.28 true TP2, chunk 8192",
+      "pf": "1,402-1,449",
+      "pf124": "-",
+      "dc": "118.6",
+      "dp": "73.4",
+      "res": "71.1 / 71.4%",
+      "stream": "131.9",
+      "verdict_zh": "撤销：prefill -11%",
+      "verdict_en": "dropped: prefill -11%"
+    },
+    {
+      "id": "R2",
+      "zh": "v1.1.28 层切（--tp 1）· chunk 8192",
+      "en": "v1.1.28 layer split (--tp 1), chunk 8192",
+      "pf": "3,268-3,372",
+      "pf124": "-",
+      "dc": "133.7-142.2",
+      "dp": "56.9",
+      "res": "74.5 / 74.9%",
+      "stream": "63.5",
+      "verdict_zh": "prefill x2.3 vs TP2",
+      "verdict_en": "prefill x2.3 vs TP2"
+    },
+    {
+      "id": "R3",
+      "zh": "v1.1.28 层切 · chunk 16384",
+      "en": "v1.1.28 layer split, chunk 16384",
+      "pf": "3,638-3,722",
+      "pf124": "3,650",
+      "dc": "145.7-155.2",
+      "dp": "66.0-66.8",
+      "res": "72.2 / 72.9%",
+      "stream": "45.3",
+      "verdict_zh": "终选基线",
+      "verdict_en": "settled baseline"
+    },
+    {
+      "id": "R4",
+      "zh": "+ chunk 32768",
+      "en": "+ chunk 32768",
+      "pf": "3,611",
+      "pf124": "-",
+      "dc": "112.9",
+      "dp": "-",
+      "res": "67.7 / 68.9%",
+      "stream": "41.2",
+      "verdict_zh": "回退：驻留被激活值挤掉",
+      "verdict_en": "regression: activations evict residency"
+    },
+    {
+      "id": "R5",
+      "zh": "+ DS4_FAT_ROWS=128",
+      "en": "+ DS4_FAT_ROWS=128",
+      "pf": "3,641",
+      "pf124": "-",
+      "dc": "124.1-131.7",
+      "dp": "-",
+      "res": "72.2 / 72.9%",
+      "stream": "45.3",
+      "verdict_zh": "无效（默认 64 已覆盖）",
+      "verdict_en": "no effect (default 64 already covers)"
+    },
+    {
+      "id": "R6",
+      "zh": "显式 DS4_SPLIT=19,21",
+      "en": "explicit DS4_SPLIT=19,21",
+      "pf": "3,659-3,689",
+      "pf124": "-",
+      "dc": "137.5-155.0",
+      "dp": "-",
+      "res": "-",
+      "stream": "43.8",
+      "verdict_zh": "与引擎自动分卡等价",
+      "verdict_en": "identical to engine auto split"
+    },
+    {
+      "id": "R7",
+      "zh": "显式 DS4_SPLIT=20,20（按层均分）",
+      "en": "explicit DS4_SPLIT=20,20 (even by layer count)",
+      "pf": "3,477-3,532",
+      "pf124": "-",
+      "dc": "128.4-159.2",
+      "dp": "-",
+      "res": "-",
+      "stream": "48.1",
+      "verdict_zh": "-4%：显式均分更差",
+      "verdict_en": "-4%: even split is worse"
+    },
+    {
+      "id": "R8",
+      "zh": "--mmap-experts off + DS4_REQUIRE_ALL_RAM=1",
+      "en": "--mmap-experts off + DS4_REQUIRE_ALL_RAM=1",
+      "pf": "3,630-3,675",
+      "pf124": "-",
+      "dc": "131.3-152.3",
+      "dp": "-",
+      "res": "-",
+      "stream": "43.9",
+      "verdict_zh": "无差：auto 已全拷 4,317 专家",
+      "verdict_en": "no change: auto already copies all 4,317 experts"
+    },
+    {
+      "id": "R9",
+      "zh": "--max-context 262144（512K→256K）",
+      "en": "--max-context 262144 (512K→256K)",
+      "pf": "3,661-3,688",
+      "pf124": "-",
+      "dc": "132.4-157.4",
+      "dp": "-",
+      "res": "-",
+      "stream": "43.3",
+      "verdict_zh": "无差：KV 仅省 0.14 GB/卡",
+      "verdict_en": "no change: KV saves only 0.14 GB per card"
+    },
+    {
+      "id": "R10",
+      "zh": "+ STRATA_DS4_Q8_BATCH=1",
+      "en": "+ STRATA_DS4_Q8_BATCH=1",
+      "pf": "3,693-3,722",
+      "pf124": "-",
+      "dc": "156.7-157.6",
+      "dp": "70.2-70.6",
+      "res": "-",
+      "stream": "45.0",
+      "verdict_zh": "无害无感，保留",
+      "verdict_en": "bit-identical, no measurable effect, kept"
+    },
+    {
+      "id": "R11",
+      "zh": "+ STRATA_DS4_PROMPT_SKIP=2（终选）",
+      "en": "+ STRATA_DS4_PROMPT_SKIP=2 (settled)",
+      "pf": "3,939-4,007",
+      "pf124": "3,708",
+      "dc": "157.3-157.8",
+      "dp": "68.7-71.1",
+      "res": "-",
+      "stream": "45.0",
+      "verdict_zh": "+6~8% @42K，decode 不变，召回无损",
+      "verdict_en": "+6-8% @42K, decode unchanged, recall intact"
+    },
+    {
+      "id": "R12",
+      "zh": "+ STRATA_DS4_RAM_SKIP_W=0.10",
+      "en": "+ STRATA_DS4_RAM_SKIP_W=0.10",
+      "pf": "3,708-3,737",
+      "pf124": "-",
+      "dc": "156.2-157.8",
+      "dp": "69.7-71.4",
+      "res": "-",
+      "stream": "45.1",
+      "verdict_zh": "无收益，弃用",
+      "verdict_en": "no gain, rejected"
+    },
+    {
+      "id": "R13",
+      "zh": "+ STRATA_DS4_RAM_SKIP_W=0.14",
+      "en": "+ STRATA_DS4_RAM_SKIP_W=0.14",
+      "pf": "3,722-3,724",
+      "pf124": "-",
+      "dc": "158.1-162.2",
+      "dp": "71.1-72.8",
+      "res": "-",
+      "stream": "44.5",
+      "verdict_zh": "无收益（差值在漂移内），弃用",
+      "verdict_en": "no gain (within drift), rejected"
+    }
+  ],
+  "dspark": [
+    [
+      256,
+      46.58,
+      74.48,
+      "+59.9%",
+      "69.2%"
+    ],
+    [
+      512,
+      46.03,
+      71.03,
+      "+54.3%",
+      "67%"
+    ],
+    [
+      1024,
+      46.22,
+      69.19,
+      "+49.7%",
+      "65.5%"
+    ]
+  ],
+  "battery": "14/15 (the single miss is the scorer not accepting the subscript H2O, identical on every condition)",
+  "needles": "9/9 at three depths in a 44,480-token prompt (front/mid/tail x 3 seeds), plus the 124K needle answered correctly"
+}

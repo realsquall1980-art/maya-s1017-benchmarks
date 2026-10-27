@@ -1,0 +1,73 @@
+# Content-free excerpt of the running service's engine log (maya-ds4-final.log)
+# Boot banner, residency, and the 42-44K prompt timing lines used in the report.
+
+ds4: a GEMV call's int8 inputs rounded in one launch (DS4_Q8_BATCH)
+ds4: the one-GPU decode path (in-place pulls, windows streamed, landings): off (v1.1.27's path: not Linux + NVIDIA + one GPU)
+ds4: the experts VRAM leaves over (~39.0 GB) are read in place from the model's files (copied into RAM after the GPUs' share when the RAM holds them all; --mmap-experts on keeps them in place) (246.8 GB of RAM free to keep them: the most-routed 39.0 GB read ahead; prompts in chunks of 16384)
+ds4: --mmap-experts auto: the CPU lane's experts (39.9 GB) fit the RAM this process can get (238.3 GB): copied into RAM (--mmap-experts on keeps them in the files)
+ds4: 3582 of the CPU lane's 3582 experts copied into RAM (39.4 GB, 1 NUMA part) in 2.1 s
+ds4: CUDA0 layers [0, 19]: weights 4.05 GB, experts 64.83 GB (5871 of 7680 in VRAM), caches 0.29 GB, 581 MiB free
+ds4: CUDA1 layers [20, 39] + head: weights 4.42 GB, experts 65.20 GB (5907 of 7680 in VRAM), caches 0.19 GB, 582 MiB free
+ds4: 3582 routed experts on the CPU lane (39.4 GB): 3582 copied into RAM (1 NUMA parts), the rest in place in the model's files; 16 threads
+ds4: CUDA0 prompt attention on the tensor cores (sm_120)
+ds4: CUDA0 busy experts (64 rows or more) as FP16 GEMMs, 1024 rows a piece, FFN up to 2304 (77 MB)
+ds4: CUDA1 prompt attention on the tensor cores (sm_120)
+ds4: CUDA1 busy experts (64 rows or more) as FP16 GEMMs, 1024 rows a piece, FFN up to 2304 (77 MB)
+ds4: a GEMV call's int8 inputs rounded in one launch (DS4_Q8_BATCH)
+ds4: the one-GPU decode path (in-place pulls, windows streamed, landings): off (v1.1.27's path: not Linux + NVIDIA + one GPU)
+ds4: the experts VRAM leaves over (~47.1 GB) are read in place from the model's files (copied into RAM after the GPUs' share when the RAM holds them all; --mmap-experts on keeps them in place) (246.0 GB of RAM free to keep them: the most-routed 47.1 GB read ahead; prompts in chunks of 16384)
+ds4: --mmap-experts auto: the CPU lane's experts (48.0 GB) fit the RAM this process can get (237.9 GB): copied into RAM (--mmap-experts on keeps them in the files)
+ds4: 4317 of the CPU lane's 4317 experts copied into RAM (47.6 GB, 1 NUMA part) in 2.9 s
+ds4: CUDA0 layers [0, 42]: weights 4.48 GB, experts 64.34 GB (5548 of 7680 in VRAM), caches 0.29 GB, 583 MiB free
+ds4: CUDA1 layers [19, 39] + head: weights 4.73 GB, experts 64.78 GB (5879 of 8064 in VRAM), caches 0.27 GB, 584 MiB free
+ds4: 4317 routed experts on the CPU lane (47.6 GB): 4317 copied into RAM (1 NUMA parts), the rest in place in the model's files; 16 threads
+ds4: CUDA0 prompt attention on the tensor cores (sm_120)
+ds4: CUDA0 busy experts (64 rows or more) as FP16 GEMMs, 1024 rows a piece, FFN up to 2304 (77 MB)
+ds4: CUDA1 prompt attention on the tensor cores (sm_120)
+ds4: CUDA1 busy experts (64 rows or more) as FP16 GEMMs, 1024 rows a piece, FFN up to 2304 (77 MB)
+ds4: a GEMV call's int8 inputs rounded in one launch (DS4_Q8_BATCH)
+ds4: the one-GPU decode path (in-place pulls, windows streamed, landings): off (v1.1.27's path: not Linux + NVIDIA + one GPU)
+ds4: the experts VRAM leaves over (~47.1 GB) are read in place from the model's files (copied into RAM after the GPUs' share when the RAM holds them all; --mmap-experts on keeps them in place) (245.7 GB of RAM free to keep them: the most-routed 47.1 GB read ahead; prompts in chunks of 16384)
+ds4: --mmap-experts auto: the CPU lane's experts (48.0 GB) fit the RAM this process can get (237.9 GB): copied into RAM (--mmap-experts on keeps them in the files)
+ds4: 4317 of the CPU lane's 4317 experts copied into RAM (47.6 GB, 1 NUMA part) in 2.5 s
+ds4: CUDA0 layers [0, 42]: weights 4.48 GB, experts 64.34 GB (5548 of 7680 in VRAM), caches 0.29 GB, 583 MiB free
+ds4: CUDA1 layers [19, 39] + head: weights 4.73 GB, experts 64.78 GB (5879 of 8064 in VRAM), caches 0.27 GB, 584 MiB free
+ds4: 4317 routed experts on the CPU lane (47.6 GB): 4317 copied into RAM (1 NUMA parts), the rest in place in the model's files; 16 threads
+ds4: CUDA0 prompt attention on the tensor cores (sm_120)
+ds4: CUDA0 busy experts (64 rows or more) as FP16 GEMMs, 1024 rows a piece, FFN up to 2304 (77 MB)
+ds4: CUDA1 prompt attention on the tensor cores (sm_120)
+ds4: CUDA1 busy experts (64 rows or more) as FP16 GEMMs, 1024 rows a piece, FFN up to 2304 (77 MB)
+
+[maya] sampling defaults from the config: temperature=1.0, top_p=1.0
+[maya] layer split across GPUs [0, 1] (auto)
+[maya] starting the engine: reading the model's weights ...
+[maya] images: the model's vision tower runs in the engine (GPU 0, 318 MiB), up to 1024 tokens a picture
+[maya] thinking level when a request names none: high
+[maya] thinking budget: 32768 tokens (then the answer)
+[maya] sessions: folder /home/hermes/AI/Maya-data/models/DeepSeek-V4.1-Flash-1017-GGUF/Maya-S/maya-ds4/slots: 0 conversation(s) kept from earlier runs (0.00 GB)
+[maya] thinking reached its budget (1 tokens): closed, answering
+[maya] sessions: saved a 44428-token conversation (0.05 GB in RAM in 0.0 s); 1 in RAM, 0 in /home/hermes/AI/Maya-data/models/DeepSeek-V4.1-Flash-1017-GGUF/Maya-S/maya-ds4/slots
+[maya] thinking reached its budget (1 tokens): closed, answering
+[maya] sessions: saved a 44428-token conversation (0.05 GB in RAM in 0.0 s); 2 in RAM, 0 in /home/hermes/AI/Maya-data/models/DeepSeek-V4.1-Flash-1017-GGUF/Maya-S/maya-ds4/slots
+[maya] thinking: 23 of max 453626 tokens, 65.2 tok/s, 21 s
+
+maya ds4 serve: prompt 44415 tokens = 0 reused + 44415 read in 11271 ms (3940.5 tok/s), 13 generated in 176 ms (73.69 tok/s); CPU lane 0.0% of the experts
+maya ds4 serve: prompt 44415 tokens = 0 reused + 44415 read in 11084 ms (4007.1 tok/s), 13 generated in 167 ms (78.04 tok/s); CPU lane 0.0% of the experts
+maya ds4 serve: prompt 70654 tokens = 0 reused + 70654 read in 20965 ms (3370.1 tok/s), 15889 generated in 155341 ms (102.28 tok/s); CPU lane 0.4% of the experts
+maya ds4 serve: prompt 62568 tokens = 0 reused + 62568 read in 21902 ms (2856.7 tok/s), 665 generated in 6921 ms (96.08 tok/s); CPU lane 0.1% of the experts
+maya ds4 serve: prompt 11539 tokens = 0 reused + 11539 read in 3942 ms (2927.6 tok/s), 18028 generated in 170504 ms (105.73 tok/s); CPU lane 0.8% of the experts
+maya ds4 serve: prompt 75620 tokens = 0 reused + 75620 read in 20194 ms (3744.6 tok/s), 1466 generated in 16154 ms (90.75 tok/s); CPU lane 0.1% of the experts
+maya ds4 serve: prompt 82059 tokens = 0 reused + 82059 read in 22081 ms (3716.3 tok/s), 447 generated in 4270 ms (104.68 tok/s); CPU lane 0.0% of the experts
+maya ds4 serve: prompt 86133 tokens = 0 reused + 86133 read in 23178 ms (3716.1 tok/s), 373 generated in 3820 ms (97.63 tok/s); CPU lane 0.0% of the experts
+maya ds4 serve: prompt 97291 tokens = 0 reused + 97291 read in 26085 ms (3729.7 tok/s), 471 generated in 4796 ms (98.20 tok/s); CPU lane 0.0% of the experts
+maya ds4 serve: prompt 21012 tokens = 0 reused + 21012 read in 6003 ms (3500.3 tok/s), 17998 generated in 143692 ms (125.25 tok/s); CPU lane 0.7% of the experts
+maya ds4 serve: prompt 68335 tokens = 0 reused + 68335 read in 18414 ms (3711.1 tok/s), 113 generated in 1626 ms (69.50 tok/s); CPU lane 0.0% of the experts
+maya ds4 serve: prompt 370017 tokens = 0 reused + 370017 read in 128986 ms (2868.7 tok/s), 9762 generated in 91251 ms (106.98 tok/s); CPU lane 0.1% of the experts
+maya ds4 serve: prompt 54476 tokens = 0 reused + 54476 read in 14693 ms (3707.6 tok/s), 1165 generated in 12794 ms (91.06 tok/s); CPU lane 0.1% of the experts
+maya ds4 serve: prompt 12905 tokens = 0 reused + 12905 read in 3934 ms (3280.6 tok/s), 12564 generated in 108653 ms (115.63 tok/s); CPU lane 0.9% of the experts
+maya ds4 serve: prompt 74057 tokens = 0 reused + 74057 read in 19798 ms (3740.6 tok/s), 236 generated in 2721 ms (86.73 tok/s); CPU lane 0.0% of the experts
+maya ds4 serve: prompt 38525 tokens = 0 reused + 38525 read in 10616 ms (3629.1 tok/s), 707 generated in 8010 ms (88.27 tok/s); CPU lane 0.1% of the experts
+maya ds4 serve: prompt 190650 tokens = 0 reused + 190650 read in 55943 ms (3407.9 tok/s), 747 generated in 6640 ms (112.50 tok/s); CPU lane 0.0% of the experts
+maya ds4 serve: prompt 193975 tokens = 0 reused + 193975 read in 56977 ms (3404.5 tok/s), 165 generated in 1458 ms (113.17 tok/s); CPU lane 0.0% of the experts
+maya ds4 serve: prompt 193832 tokens = 0 reused + 193832 read in 57062 ms (3396.9 tok/s), 807 generated in 8281 ms (97.46 tok/s); CPU lane 0.0% of the experts
+maya ds4 serve: prompt 194821 tokens = 0 reused + 194821 read in 57372 ms (3395.8 tok/s), 926 generated in 8650 ms (107.05 tok/s); CPU lane 0.0% of the experts

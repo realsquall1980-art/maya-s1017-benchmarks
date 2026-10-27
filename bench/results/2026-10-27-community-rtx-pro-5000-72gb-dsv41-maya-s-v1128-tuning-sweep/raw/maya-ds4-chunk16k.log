@@ -1,0 +1,141 @@
+[maya] sampling defaults from the config: temperature=1.0, top_p=1.0
+loading the model (the first start takes a minute or two) ...
+[maya] layer split across GPUs [0, 1] (auto)
+[maya] starting the engine: reading the model's weights ...
+ds4: the one-GPU decode path (in-place pulls, windows streamed, landings): off (v1.1.27's path: not Linux + NVIDIA + one GPU)
+ds4: the experts VRAM leaves over (~47.1 GB) are read in place from the model's files (copied into RAM after the GPUs' share when the RAM holds them all; --mmap-experts on keeps them in place) (246.1 GB of RAM free to keep them: the most-routed 47.1 GB read ahead; prompts in chunks of 16384)
+[maya] still starting (20 s) - please wait ...
+ds4: --mmap-experts auto: the CPU lane's experts (48.0 GB) fit the RAM this process can get (238.0 GB): copied into RAM (--mmap-experts on keeps them in the files)
+ds4: 4318 of the CPU lane's 4318 experts copied into RAM (47.6 GB, 1 NUMA part) in 2.5 s
+ds4: CUDA0 layers [0, 42]: weights 4.48 GB, experts 64.35 GB (5547 of 7680 in VRAM), caches 0.29 GB, 583 MiB free
+ds4: CUDA1 layers [19, 39] + head: weights 4.73 GB, experts 64.78 GB (5879 of 8064 in VRAM), caches 0.27 GB, 580 MiB free
+ds4: 4318 routed experts on the CPU lane (47.6 GB): 4318 copied into RAM (1 NUMA parts), the rest in place in the model's files; 16 threads
+maya ds4 serve: GEN <max_new> [keys] <ids>; GENI <max_new> [keys] <pictures> <ids>; STOP, QUIT
+ds4 slots: folder /home/hermes/AI/Maya-data/models/DeepSeek-V4.1-Flash-1017-GGUF/Maya-S/maya-ds4/slots: 1 conversation(s) kept from earlier runs (0.05 GB)
+[maya] images: the model's vision tower runs in the engine (GPU 0, 318 MiB), up to 1024 tokens a picture
+[maya] thinking level when a request names none: high
+[maya] thinking budget: 32768 tokens (then the answer)
+ready: http://127.0.0.1:8081/v1  (OpenAI: /v1/chat/completions, /v1/responses, Anthropic: /v1/messages, context 524288 tokens, images on)
+       open http://127.0.0.1:8081/ in a browser to chat; close this window to stop the model
+[maya] sessions: folder /home/hermes/AI/Maya-data/models/DeepSeek-V4.1-Flash-1017-GGUF/Maya-S/maya-ds4/slots: 1 conversation(s) kept from earlier runs (0.05 GB)
+ds4: CUDA0 prompt attention on the tensor cores (sm_120)
+ds4: CUDA0 busy experts (64 rows or more) as FP16 GEMMs, 1024 rows a piece, FFN up to 2304 (77 MB)
+ds4: CUDA1 prompt attention on the tensor cores (sm_120)
+ds4: CUDA1 busy experts (64 rows or more) as FP16 GEMMs, 1024 rows a piece, FFN up to 2304 (77 MB)
+[maya] reading the prompt: 15,540 of 124,316 tokens, 4 s so far
+[maya] reading the prompt: 15,540 of 124,316 tokens, 5 s so far
+[maya] reading the prompt: 15,540 of 124,316 tokens, 6 s so far
+[maya] reading the prompt: 15,540 of 124,316 tokens, 7 s so far
+[maya] reading the prompt: 31,080 of 124,316 tokens, 8 s so far
+[maya] reading the prompt: 31,080 of 124,316 tokens, 9 s so far
+[maya] reading the prompt: 31,080 of 124,316 tokens, 10 s so far
+[maya] reading the prompt: 31,080 of 124,316 tokens, 11 s so far
+[maya] reading the prompt: 46,620 of 124,316 tokens, 12 s so far
+[maya] reading the prompt: 46,620 of 124,316 tokens, 13 s so far
+[maya] reading the prompt: 46,620 of 124,316 tokens, 14 s so far
+[maya] reading the prompt: 46,620 of 124,316 tokens, 15 s so far
+[maya] reading the prompt: 62,160 of 124,316 tokens, 16 s so far
+[maya] reading the prompt: 62,160 of 124,316 tokens, 17 s so far
+[maya] reading the prompt: 62,160 of 124,316 tokens, 18 s so far
+[maya] reading the prompt: 62,160 of 124,316 tokens, 19 s so far
+[maya] reading the prompt: 77,700 of 124,316 tokens, 20 s so far
+[maya] reading the prompt: 77,700 of 124,316 tokens, 21 s so far
+[maya] reading the prompt: 77,700 of 124,316 tokens, 22 s so far
+[maya] reading the prompt: 77,700 of 124,316 tokens, 23 s so far
+[maya] reading the prompt: 93,240 of 124,316 tokens, 24 s so far
+[maya] reading the prompt: 93,240 of 124,316 tokens, 25 s so far
+[maya] reading the prompt: 93,240 of 124,316 tokens, 26 s so far
+[maya] reading the prompt: 93,240 of 124,316 tokens, 27 s so far
+[maya] reading the prompt: 93,240 of 124,316 tokens, 28 s so far
+[maya] reading the prompt: 108,780 of 124,316 tokens, 29 s so far
+[maya] reading the prompt: 108,780 of 124,316 tokens, 30 s so far
+[maya] reading the prompt: 108,780 of 124,316 tokens, 31 s so far
+[maya] reading the prompt: 108,780 of 124,316 tokens, 32 s so far
+DS4_PREFILL gpu=0 tokens=124316 chunk=16384 expert_row_picks=14172024 vram_row_picks=12227242 unique_expert_uses=32457 vram_unique_expert_uses=24228 streamed_weight_bytes=90275420160
+[maya] reading the prompt: 108,780 of 124,316 tokens, 33 s so far
+DS4_PREFILL gpu=1 tokens=124316 chunk=16384 expert_row_picks=1066056 vram_row_picks=994111 unique_expert_uses=7089 vram_unique_expert_uses=5799 streamed_weight_bytes=15280312320
+[maya] thinking reached its budget (1 tokens): closed, answering
+[maya] answering: 3 of max 64 tokens, 65.3 tok/s, 34 s
+maya ds4 serve: prompt 124316 tokens = 0 reused + 124316 read in 34061 ms (3649.8 tok/s), 21 generated in 245 ms (85.73 tok/s); CPU lane 0.0% of the experts
+maya ds4 serve: drafts 14 of 15 kept; per position (kept / reached): 1: 5/5 100% 2: 4/4 100% 3: 2/2 100% 4: 2/2 100% 5: 1/2 50%
+[maya] done: 21 tokens in 34 s (85.7 tok/s) (stop, cancel=False), expert cache 91.5% hit
+ds4 slots: saved a 124337-token conversation (0.13 GB in RAM in 0.0 s); 1 in RAM, 1 in /home/hermes/AI/Maya-data/models/DeepSeek-V4.1-Flash-1017-GGUF/Maya-S/maya-ds4/slots
+[maya] sessions: saved a 124337-token conversation (0.13 GB in RAM in 0.0 s); 1 in RAM, 1 in /home/hermes/AI/Maya-data/models/DeepSeek-V4.1-Flash-1017-GGUF/Maya-S/maya-ds4/slots
+[maya] thinking reached its budget (1 tokens): closed, answering
+[maya] answering: 34 of max 700 tokens, 49.3 tok/s, 1 s
+[maya] answering: 96 of max 700 tokens, 56.3 tok/s, 2 s
+[maya] answering: 156 of max 700 tokens, 57.5 tok/s, 3 s
+[maya] answering: 217 of max 700 tokens, 58.2 tok/s, 4 s
+[maya] answering: 286 of max 700 tokens, 60.3 tok/s, 5 s
+[maya] answering: 350 of max 700 tokens, 60.9 tok/s, 6 s
+[maya] answering: 416 of max 700 tokens, 61.7 tok/s, 7 s
+maya ds4 serve: prompt 48 tokens = 0 reused + 48 read in 311 ms (154.6 tok/s), 451 generated in 7323 ms (61.58 tok/s); CPU lane 3.3% of the experts
+maya ds4 serve: drafts 92 of 157 kept; per position (kept / reached): 1: 80/135 59% 2: 10/15 67% 3: 1/1 100% 4: 1/1 100%
+[maya] done: 451 tokens in 8 s (61.6 tok/s) (stop, cancel=False), expert cache 97.3% hit
+[maya] thinking reached its budget (1 tokens): closed, answering
+[maya] answering: 68 of max 700 tokens, 69.0 tok/s, 1 s
+[maya] answering: 133 of max 700 tokens, 66.6 tok/s, 2 s
+[maya] answering: 200 of max 700 tokens, 66.4 tok/s, 3 s
+[maya] answering: 264 of max 700 tokens, 65.7 tok/s, 4 s
+[maya] answering: 327 of max 700 tokens, 65.0 tok/s, 5 s
+[maya] answering: 398 of max 700 tokens, 65.8 tok/s, 6 s
+maya ds4 serve: prompt 48 tokens = 47 reused + 1 read in 18 ms (56.3 tok/s), 445 generated in 6744 ms (65.98 tok/s); CPU lane 1.3% of the experts
+maya ds4 serve: drafts 94 of 134 kept; per position (kept / reached): 1: 80/109 73% 2: 13/17 76% 3: 1/2 50%
+[maya] done: 445 tokens in 7 s (66.0 tok/s) (stop, cancel=False), expert cache 98.7% hit
+[maya] thinking reached its budget (1 tokens): closed, answering
+[maya] answering: 65 of max 700 tokens, 65.8 tok/s, 1 s
+[maya] answering: 134 of max 700 tokens, 66.7 tok/s, 2 s
+[maya] answering: 204 of max 700 tokens, 67.7 tok/s, 3 s
+[maya] answering: 272 of max 700 tokens, 67.7 tok/s, 4 s
+[maya] answering: 338 of max 700 tokens, 67.2 tok/s, 5 s
+maya ds4 serve: prompt 48 tokens = 47 reused + 1 read in 17 ms (58.4 tok/s), 349 generated in 5227 ms (66.77 tok/s); CPU lane 0.8% of the experts
+maya ds4 serve: drafts 73 of 120 kept; per position (kept / reached): 1: 62/98 63% 2: 11/15 73% 3: 0/1 0%
+[maya] done: 349 tokens in 5 s (66.8 tok/s) (stop, cancel=False), expert cache 99.2% hit
+DS4_PREFILL gpu=0 tokens=51 chunk=16384 expert_row_picks=5814 vram_row_picks=5421 unique_expert_uses=1881 vram_unique_expert_uses=1669 streamed_weight_bytes=2340126720
+DS4_PREFILL gpu=1 tokens=51 chunk=16384 expert_row_picks=6426 vram_row_picks=5914 unique_expert_uses=2266 vram_unique_expert_uses=2043 streamed_weight_bytes=2446571520
+[maya] thinking reached its budget (1 tokens): closed, answering
+[maya] answering: 35 of max 700 tokens, 70.3 tok/s, 1 s
+[maya] answering: 124 of max 700 tokens, 82.1 tok/s, 2 s
+[maya] answering: 219 of max 700 tokens, 86.1 tok/s, 3 s
+[maya] answering: 331 of max 700 tokens, 92.3 tok/s, 4 s
+[maya] answering: 448 of max 700 tokens, 97.0 tok/s, 5 s
+[maya] answering: 571 of max 700 tokens, 101.4 tok/s, 6 s
+maya ds4 serve: prompt 51 tokens = 0 reused + 51 read in 505 ms (101.0 tok/s), 700 generated in 6603 ms (106.02 tok/s); CPU lane 12.2% of the experts
+maya ds4 serve: drafts 557 of 611 kept; per position (kept / reached): 1: 128/136 94% 2: 121/127 95% 3: 108/109 99% 4: 102/105 97% 5: 98/102 96%
+[maya] done: 700 tokens in 7 s (106.0 tok/s) (length, cancel=False), expert cache 87.0% hit
+[maya] thinking reached its budget (1 tokens): closed, answering
+[maya] answering: 144 of max 700 tokens, 142.3 tok/s, 1 s
+[maya] answering: 283 of max 700 tokens, 140.4 tok/s, 2 s
+[maya] answering: 435 of max 700 tokens, 143.4 tok/s, 3 s
+[maya] answering: 579 of max 700 tokens, 143.1 tok/s, 4 s
+maya ds4 serve: prompt 51 tokens = 50 reused + 1 read in 18 ms (54.5 tok/s), 700 generated in 4803 ms (145.74 tok/s); CPU lane 2.2% of the experts
+maya ds4 serve: drafts 557 of 613 kept; per position (kept / reached): 1: 135/140 96% 2: 125/127 98% 3: 109/115 95% 4: 100/106 94% 5: 88/92 96%
+[maya] done: 700 tokens in 5 s (145.7 tok/s) (length, cancel=False), expert cache 97.8% hit
+[maya] thinking reached its budget (1 tokens): closed, answering
+[maya] answering: 141 of max 700 tokens, 141.4 tok/s, 1 s
+[maya] answering: 298 of max 700 tokens, 148.0 tok/s, 2 s
+[maya] answering: 456 of max 700 tokens, 149.9 tok/s, 3 s
+[maya] answering: 614 of max 700 tokens, 151.6 tok/s, 4 s
+maya ds4 serve: prompt 51 tokens = 50 reused + 1 read in 18 ms (55.1 tok/s), 700 generated in 4612 ms (151.77 tok/s); CPU lane 1.0% of the experts
+maya ds4 serve: drafts 551 of 590 kept; per position (kept / reached): 1: 136/138 99% 2: 127/131 97% 3: 106/116 91% 4: 96/98 98% 5: 86/87 99%
+[maya] done: 700 tokens in 5 s (151.8 tok/s) (length, cancel=False), expert cache 99.0% hit
+[maya] thinking reached its budget (1 tokens): closed, answering
+[maya] answering: 140 of max 700 tokens, 142.2 tok/s, 1 s
+[maya] answering: 297 of max 700 tokens, 147.8 tok/s, 2 s
+[maya] answering: 443 of max 700 tokens, 146.7 tok/s, 3 s
+[maya] answering: 593 of max 700 tokens, 146.6 tok/s, 4 s
+maya ds4 serve: prompt 51 tokens = 50 reused + 1 read in 19 ms (53.7 tok/s), 700 generated in 4761 ms (147.04 tok/s); CPU lane 0.8% of the experts
+maya ds4 serve: drafts 546 of 606 kept; per position (kept / reached): 1: 138/147 94% 2: 121/127 95% 3: 110/112 98% 4: 93/98 95% 5: 84/87 97%
+[maya] done: 700 tokens in 5 s (147.0 tok/s) (length, cancel=False), expert cache 99.2% hit
+[maya] thinking reached its budget (1 tokens): closed, answering
+[maya] answering: 160 of max 700 tokens, 159.5 tok/s, 1 s
+[maya] answering: 315 of max 700 tokens, 155.3 tok/s, 2 s
+[maya] answering: 483 of max 700 tokens, 158.6 tok/s, 3 s
+[maya] answering: 621 of max 700 tokens, 152.9 tok/s, 4 s
+maya ds4 serve: prompt 51 tokens = 50 reused + 1 read in 17 ms (57.6 tok/s), 700 generated in 4511 ms (155.19 tok/s); CPU lane 0.6% of the experts
+maya ds4 serve: drafts 559 of 609 kept; per position (kept / reached): 1: 130/138 94% 2: 119/126 94% 3: 107/112 96% 4: 105/105 100% 5: 98/99 99%
+[maya] done: 700 tokens in 5 s (155.2 tok/s) (length, cancel=False), expert cache 99.4% hit
+[maya] stopping (SIGTERM): the engine ends
+[maya] the GPU readings' NVML reader stopped (its pipe broke ([Errno 32] Broken pipe)); starting it again
+ds4 slots: wrote 1 conversation(s) to /home/hermes/AI/Maya-data/models/DeepSeek-V4.1-Flash-1017-GGUF/Maya-S/maya-ds4/slots; 2 there in all
+[maya] sessions: wrote 1 conversation(s) to /home/hermes/AI/Maya-data/models/DeepSeek-V4.1-Flash-1017-GGUF/Maya-S/maya-ds4/slots; 2 there in all

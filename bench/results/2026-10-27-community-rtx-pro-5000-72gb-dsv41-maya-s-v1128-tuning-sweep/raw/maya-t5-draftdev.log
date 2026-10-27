@@ -1,0 +1,8 @@
+ds4: the one-GPU decode path (in-place pulls, windows streamed, landings): off (v1.1.27's path: not Linux + NVIDIA + one GPU)
+maya-ds4: DS4_DRAFT_DEV=1: no DSpark blocks loaded (--dspark none)
+[maya] sampling defaults from the config: temperature=1.0, top_p=1.0
+loading the model (the first start takes a minute or two) ...
+[maya] layer split across GPUs [0, 1] (auto)
+[maya] starting the engine: reading the model's weights ...
+ds4: the one-GPU decode path (in-place pulls, windows streamed, landings): off (v1.1.27's path: not Linux + NVIDIA + one GPU)
+maya-ds4: DS4_DRAFT_DEV=1: not one whole number, or one a block (3), each 0 .. 0 (the drafter's group's members)
