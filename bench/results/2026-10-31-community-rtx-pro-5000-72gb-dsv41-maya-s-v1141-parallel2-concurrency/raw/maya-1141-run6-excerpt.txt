@@ -1,0 +1,8 @@
+ds4: CUDA0 prompt ring: 32 slots of 12.0 MB, 8 a batch (385 MB) for its 28.8 GB/s link (DS4_RING_MB sets it)
+ds4: CUDA1 prompt ring: 32 slots of 12.0 MB, 8 a batch (385 MB) for its 28.8 GB/s link (DS4_RING_MB sets it)
+ds4: CUDA0 layers [0, 42]: weights 4.48 GB, experts 64.38 GB (5548 of 7680 in VRAM), caches 0.59 GB, 483 MiB free
+ds4: CUDA1 layers [19, 39] + head: weights 4.73 GB, experts 64.49 GB (5852 of 8064 in VRAM), caches 0.55 GB, 486 MiB free
+ds4: 4344 routed experts on the CPU lane (47.8 GB): 4344 copied into RAM (1 NUMA parts), the rest in place in the model's files; 16 threads
+ready: http://127.0.0.1:8081/v1  (OpenAI: /v1/chat/completions, /v1/responses, Anthropic: /v1/messages, context 524288 tokens, images on)
+ds4 slots: folder ~/AI/Maya-data/models/DeepSeek-V4.1-Flash-1017-GGUF/Maya-S/maya-ds4/slots: 140 conversation(s) kept from earlier runs (17.09 GB)
+[maya] sessions: folder ~/AI/Maya-data/models/DeepSeek-V4.1-Flash-1017-GGUF/Maya-S/maya-ds4/slots: 140 conversation(s) kept from earlier runs (17.09 GB)

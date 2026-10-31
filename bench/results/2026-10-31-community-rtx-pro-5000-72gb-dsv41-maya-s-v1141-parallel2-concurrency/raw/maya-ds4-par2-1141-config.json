@@ -1,0 +1,31 @@
+{
+ "exe": "~/AI/maya-1141/bin/maya-ds4",
+ "args": [
+  "--pack",
+  "~/AI/Maya-data/models/DeepSeek-V4.1-Flash-1017-GGUF/Maya-S/maya-ds4",
+  "--max-context",
+  "524288",
+  "--tp",
+  "1",
+  "--mmap-experts",
+  "auto",
+  "--vision",
+  "on",
+  "--prefill-chunk",
+  "16384",
+  "--dspark",
+  "on",
+  "--parallel",
+  "2"
+ ],
+ "env": {
+  "DS4_PREFILL_STATS": "1",
+  "MAYA_DS4_SLOT_KEEP": "1",
+  "MAYA_DS4_KEEP_THINKING": "1",
+  "MAYA_DS4_Q8_BATCH": "1",
+  "MAYA_DS4_PROMPT_SKIP": "2"
+ },
+ "log": "~/AI/maya-1141/maya-ds4-1141.log",
+ "sha256_of_exe": "f25394ef43343f77631de72523380f54b5bac22cfdb5a285893f0c4433c2c3e4",
+ "version_readback": "maya-ds4 1.1.41 (build unknown)"
+}

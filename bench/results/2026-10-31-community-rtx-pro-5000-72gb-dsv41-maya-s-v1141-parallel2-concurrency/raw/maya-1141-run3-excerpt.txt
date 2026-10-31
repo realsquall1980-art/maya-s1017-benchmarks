@@ -1,0 +1,32 @@
+ds4: CUDA0 prompt ring: 32 slots of 12.0 MB, 8 a batch (385 MB) for its 28.8 GB/s link (DS4_RING_MB sets it)
+ds4: CUDA1 prompt ring: 32 slots of 12.0 MB, 8 a batch (385 MB) for its 28.8 GB/s link (DS4_RING_MB sets it)
+ds4: CUDA0 layers [0, 42]: weights 4.48 GB, experts 64.38 GB (5549 of 7680 in VRAM), caches 0.59 GB, 485 MiB free
+ds4: CUDA1 layers [19, 39] + head: weights 4.73 GB, experts 64.49 GB (5852 of 8064 in VRAM), caches 0.55 GB, 486 MiB free
+ds4: 4343 routed experts on the CPU lane (47.8 GB): 4343 copied into RAM (1 NUMA parts), the rest in place in the model's files; 16 threads
+ds4 slots: folder ~/AI/Maya-data/models/DeepSeek-V4.1-Flash-1017-GGUF/Maya-S/maya-ds4/slots: 7 conversation(s) kept from earlier runs (0.36 GB)
+[maya] sessions: folder ~/AI/Maya-data/models/DeepSeek-V4.1-Flash-1017-GGUF/Maya-S/maya-ds4/slots: 7 conversation(s) kept from earlier runs (0.36 GB)
+ready: http://127.0.0.1:8081/v1  (OpenAI: /v1/chat/completions, /v1/responses, Anthropic: /v1/messages, context 524288 tokens, images on)
+maya ds4 serve: request 1: prompt 42027 tokens = 0 reused + 42027 read in 11027 ms (3811.2 tok/s), 4 generated in 97 ms (41.26 tok/s, 0 conversations running; drafts 1 of 3 kept)
+maya ds4 serve: request 2: prompt 52677 tokens = 0 reused + 52677 read in 14077 ms (3741.9 tok/s), 4 generated in 86 ms (46.58 tok/s, 0 conversations running; drafts 1 of 2 kept)
+ds4 slots: saved a 42031-token conversation (0.05 GB in RAM in 0.0 s); 1 in RAM, 7 in ~/AI/Maya-data/models/DeepSeek-V4.1-Flash-1017-GGUF/Maya-S/maya-ds4/slots
+ds4 slots: saved a 52681-token conversation (0.06 GB in RAM in 0.0 s); 2 in RAM, 7 in ~/AI/Maya-data/models/DeepSeek-V4.1-Flash-1017-GGUF/Maya-S/maya-ds4/slots
+maya ds4 serve: request 3: prompt 12880 tokens = 0 reused + 12880 read in 6424 ms (2005.1 tok/s), 4 generated in 13250 ms (0.30 tok/s, 1 conversations running; drafts 1 of 2 kept)
+maya ds4 serve: request 4: prompt 47168 tokens = 0 reused + 47168 read in 13172 ms (3581.0 tok/s), 4 generated in 125 ms (31.99 tok/s, 0 conversations running; drafts 1 of 5 kept)
+ds4 slots: saved a 12884-token conversation (0.02 GB in RAM in 0.0 s); 3 in RAM, 7 in ~/AI/Maya-data/models/DeepSeek-V4.1-Flash-1017-GGUF/Maya-S/maya-ds4/slots
+maya ds4 serve: request 5: prompt 217348 tokens = 0 reused + 217348 read in 69621 ms (3121.9 tok/s), 484 generated in 4877 ms (99.24 tok/s, 0 conversations running; drafts 328 of 440 kept)
+maya ds4 serve: request 6: prompt 218379 tokens = 217832 reused + 547 read in 2506 ms (218.3 tok/s), 131 generated in 981 ms (133.52 tok/s, 0 conversations running; drafts 105 of 118 kept)
+maya ds4 serve: request 7: prompt 223399 tokens = 218510 reused + 4889 read in 3561 ms (1372.9 tok/s), 249 generated in 2104 ms (118.37 tok/s, 0 conversations running; drafts 193 of 238 kept)
+ds4 slots: saved a 47172-token conversation (0.06 GB in RAM in 0.0 s); 4 in RAM, 7 in ~/AI/Maya-data/models/DeepSeek-V4.1-Flash-1017-GGUF/Maya-S/maya-ds4/slots
+maya ds4 serve: request 8: prompt 521 tokens = 0 reused + 521 read in 1771 ms (294.2 tok/s), 61 generated in 703 ms (86.80 tok/s, 0 conversations running; drafts 38 of 51 kept)
+ds4 slots: saved a 223648-token conversation (0.22 GB in RAM in 0.1 s); 4 in RAM, 8 in ~/AI/Maya-data/models/DeepSeek-V4.1-Flash-1017-GGUF/Maya-S/maya-ds4/slots
+maya ds4 serve: request 9: prompt 225528 tokens = 223399 reused + 2129 read in 2161 ms (985.0 tok/s), 288 generated in 2175 ms (132.41 tok/s, 0 conversations running; drafts 229 of 262 kept)
+maya ds4 serve: request 10: prompt 226141 tokens = 225816 reused + 325 read in 1057 ms (307.4 tok/s), 199 generated in 1787 ms (111.36 tok/s, 0 conversations running; drafts 145 of 202 kept)
+maya ds4 serve: request 12: prompt 58917 tokens = 0 reused + 58917 read in 18409 ms (3200.5 tok/s), 563 generated in 7058 ms (79.77 tok/s, 1 conversations running; drafts 403 of 467 kept)
+maya ds4 serve: request 13: prompt 60163 tokens = 59480 reused + 683 read in 1456 ms (468.9 tok/s), 574 generated in 10887 ms (52.72 tok/s, 1 conversations running; drafts 279 of 430 kept)
+maya ds4 serve: request 14: prompt 61243 tokens = 60736 reused + 507 read in 1558 ms (325.5 tok/s), 353 generated in 6149 ms (57.41 tok/s, 1 conversations running; drafts 186 of 287 kept)
+maya ds4 serve: request 11: prompt 227665 tokens = 226339 reused + 1326 read in 1412 ms (938.9 tok/s), 3106 generated in 72455 ms (42.87 tok/s, 1 conversations running; drafts 1956 of 2492 kept)
+maya ds4 serve: request 15: prompt 62434 tokens = 61596 reused + 838 read in 2109 ms (397.3 tok/s), 1751 generated in 26880 ms (65.14 tok/s, 1 conversations running; drafts 1204 of 1490 kept)
+maya ds4 serve: request 17: prompt 64417 tokens = 64185 reused + 232 read in 1089 ms (213.1 tok/s), 149 generated in 1701 ms (87.61 tok/s, 1 conversations running; drafts 114 of 126 kept)
+maya ds4 serve: request 16: prompt 230851 tokens = 230771 reused + 80 read in 505 ms (158.5 tok/s), 693 generated in 9889 ms (70.08 tok/s, 0 conversations running; drafts 437 of 623 kept)
+ds4 slots: saved a 231544-token conversation as the engine ended (0.23 GB in RAM in 0.1 s); 4 in RAM, 9 in ~/AI/Maya-data/models/DeepSeek-V4.1-Flash-1017-GGUF/Maya-S/maya-ds4/slots
+ds4 slots: wrote 4 conversation(s) to ~/AI/Maya-data/models/DeepSeek-V4.1-Flash-1017-GGUF/Maya-S/maya-ds4/slots; 13 there in all

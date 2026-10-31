@@ -107,6 +107,22 @@ REPORTS = {
         "context_tokens": 524288,
         "limitations": "quick comparison, not a statistical A/B (one boot per condition; differences within +/-3% treated as noise); single-turn, no concurrency; longest prompt 124-131K",
     },
+    "2026-10-31-v1141-parallel2-concurrency": {
+        "date": "2026-10-31",
+        "dir": "2026-10-31-community-rtx-pro-5000-72gb-dsv41-maya-s-v1141-parallel2-concurrency",
+        "title": "v1.1.41 --parallel 2: 14h real agent traffic + controlled smoke (concurrency cost)",
+        "engine": "Project Maya",
+        "engine_version": "v1.1.41 (self-built, sha256 f25394ef...c2c3e4, sm_120)",
+        "model_pack": "DeepSeek-V4.1-Flash-1017 Maya-S (same pack as the 2026-10-27 entry)",
+        "quant": "mixed IQ2_XXS/IQ2_S/IQ3_S, 2.56 bpw",
+        "gpus": 2,
+        "gpu_model": "NVIDIA RTX PRO 5000 72GB (Blackwell), PCIe link 28.8 GB/s per card (x8 gen1)",
+        "cpu": "AMD Ryzen 9 9950X3D",
+        "ram": "249 GiB DDR5-6000 dual-channel",
+        "os": "Ubuntu 24.04, CUDA 13.0",
+        "context_tokens": 524288,
+        "limitations": "soak is observational real traffic (solo/concurrent split from the engine's conversations-running field); no --parallel 4; no 1M window; aggregate x1.3 is inferred from medians, not a fixed-workload test",
+    },
 }
 
 COLUMNS = [
@@ -479,6 +495,107 @@ rows += [
         source=README27),
 ]
 
+# --------------------------------------------------------------------------
+# 2026-10-31 — v1.1.41 --parallel 2 concurrency, read from its own summary.json
+# --------------------------------------------------------------------------
+R31 = "2026-10-31-v1141-parallel2-concurrency"
+SUMMARY31_PATH = os.path.join(RESULTS, REPORTS[R31]["dir"], "data", "summary.json")
+with open(SUMMARY31_PATH, encoding="utf-8") as handle:
+    s31 = json.load(handle)
+SRC31 = f"bench/results/{REPORTS[R31]['dir']}/data/summary.json"
+README31 = f"bench/results/{REPORTS[R31]['dir']}/README.md"
+RAW31 = f"bench/results/{REPORTS[R31]['dir']}/raw/maya-1141-requests-all.csv"
+
+soak = s31["soak"]
+smoke = s31["smoke_controlled"]
+CFG31 = s31["engine"]["args"] + " | env: " + s31["engine"]["env"]
+
+rows += [
+    row(R31, "P2-soak", CFG31, "requests_observed", text=f'{soak["requests"]}', unit="count",
+        notes=f'14h06 boot of real agent traffic; {soak["prompt_tokens_total"]:,} prompt tokens, '
+              f'{soak["gen_tokens_total"]:,} generated tokens', counter="engine_log",
+        source=RAW31),
+    row(R31, "P2-soak", CFG31, "decode_tok_s",
+        f'{soak["decode_solo_gen200plus"]["p25"]}-{soak["decode_solo_gen200plus"]["p75"]}',
+        unit="tok_s", dspark="on", workload="mixed_real_agent",
+        notes=f'solo lane, generation >=200 tokens, n={soak["decode_solo_gen200plus"]["n"]}, '
+              f'median {soak["decode_solo_gen200plus"]["median"]}', source=SRC31),
+    row(R31, "P2-soak", CFG31, "decode_tok_s",
+        f'{soak["decode_concurrent_gen200plus"]["p25"]}-{soak["decode_concurrent_gen200plus"]["p75"]}',
+        unit="tok_s", dspark="on", workload="mixed_real_agent",
+        notes=f'concurrent lane (other conversation generating), generation >=200 tokens, '
+              f'n={soak["decode_concurrent_gen200plus"]["n"]}, median '
+              f'{soak["decode_concurrent_gen200plus"]["median"]}', source=SRC31),
+    row(R31, "P2-soak", CFG31, "decode_concurrency_ratio_pct",
+        str(soak["decode_concurrency_ratio_pct"]), unit="pct", dspark="on",
+        workload="mixed_real_agent",
+        notes="concurrent-lane median / solo-lane median (generation >=200 tokens); "
+              "stable 65-66% across the 50-199 / 200-999 / >=1000 output bands", source=SRC31),
+    row(R31, "P2-soak", CFG31, "prefill_tok_s",
+        f'{soak["prefill_solo_fresh20kplus"]["p25"]}-{soak["prefill_solo_fresh20kplus"]["p75"]}',
+        unit="tok_s", prompt_tokens=100000, dspark="on",
+        notes=f'fresh reads >=20K, lane idle, n={soak["prefill_solo_fresh20kplus"]["n"]}, '
+              f'median {soak["prefill_solo_fresh20kplus"]["median"]}', source=SRC31),
+    row(R31, "P2-soak", CFG31, "prefill_tok_s",
+        str(soak["prefill_concurrent_fresh20kplus"]["median"]), unit="tok_s", prompt_tokens=100000,
+        dspark="on",
+        notes=f'fresh reads >=20K while the other lane also prefilling, '
+              f'n={soak["prefill_concurrent_fresh20kplus"]["n"]}, '
+              f'{soak["prefill_concurrent_fresh20kplus"]["delta_pct"]}% vs solo', source=SRC31),
+    row(R31, "P2-soak", CFG31, "cache_hit_rate_pct", str(soak["cache_hit_request_pct"]),
+        unit="pct", dspark="on",
+        notes=f'93.3% of requests hit the conversation cache; token-level reuse '
+              f'{soak["cache_hit_token_pct"]}% of 293.2M prompt tokens', source=RAW31),
+    row(R31, "P2-deepest", CFG31, "prefill_tok_s", str(soak["max_prompt_fresh_read_tps"]),
+        unit="tok_s", prompt_tokens=soak["max_prompt_tokens"], dspark="on",
+        evidence="single_point_not_benchmark",
+        notes="deepest cold read observed: 91.2% of the 524K window", source=RAW31),
+    row(R31, "P2-deepest", CFG31, "decode_tok_s",
+        str(soak["max_prompt_then_generated"].split("@ ")[1].split(" ")[0]), unit="tok_s",
+        prompt_tokens=soak["max_prompt_tokens"], dspark="on", workload="mixed_real_agent",
+        evidence="single_point_not_benchmark",
+        notes="7,187 tokens generated at 60.8 tok/s right after the 478K cold read, "
+              "with one other conversation running", source=RAW31),
+    row(R31, "P2-soak", CFG31, "draft_acceptance_pct", str(soak["draft_acceptance_all_pct"]),
+        unit="pct", dspark="on", notes="698,157 of 914,979 draft tokens kept, whole soak",
+        source=RAW31),
+    row(R31, "P2-soak", CFG31, "draft_acceptance_pct",
+        str(soak["draft_acceptance_concurrent_pct"]), unit="pct", dspark="on",
+        notes="slightly HIGHER with a second conversation running (75.2% solo) — no concurrency "
+              "penalty for DSpark batching, consistent with the 1.1.36 design", source=RAW31),
+    row(R31, "P2-soak", CFG31, "stability",
+        text="0 window-ring / unspecified-launch / fatal / segfault in 14h", unit="result",
+        dspark="on", notes="issue #690 crash class did not reproduce on 9950X3D + 2x PRO 5000 "
+                           "layer split with two overlapping agent lanes", source=SRC31),
+    row(R31, "P2-smoke", CFG31, "prefill_tok_s", str(smoke["first_fresh_prompt_after_boot"]["read_tps"]),
+        unit="tok_s", prompt_tokens=24528, dspark="on",
+        notes="first fresh read after boot (14.2 s); warm soak median at 50-150K is 3,596 — the "
+              "cold-first-read penalty is real even on 1.1.41 (improved vs 1.1.40 by #612, not "
+              "measured as an A/B here)", source=SRC31),
+    row(R31, "P2-smoke", CFG31, "decode_tok_s",
+        f'{min(smoke["two_concurrent_identical_probes"]["a_tps"], smoke["two_concurrent_identical_probes"]["b_tps"])}-{max(smoke["two_concurrent_identical_probes"]["a_tps"], smoke["two_concurrent_identical_probes"]["b_tps"])}',
+        unit="tok_s", dspark="on", workload="prose",
+        evidence="single_point_not_benchmark",
+        notes="two identical concurrent probes = 93-99% of the 57.55 tok/s solo short answer; "
+              "controlled bursts overstate what real traffic sees", source=SRC31),
+    row(R31, "P2-smoke", CFG31, "two_lane_aggregate_x",
+        text="~1.3 (soak medians) / ~1.6-1.9 (controlled burst)", unit="ratio", dspark="on",
+        evidence="derived_estimate",
+        notes="derived from per-lane figures; no fixed-workload aggregate throughput test",
+        source=README31),
+    row(R31, "BANNER", s31["boot_banner"]["residency_cuda0"] + " / " + s31["boot_banner"]["residency_cuda1"],
+        "expert_residency_pct", "72.2 / 72.5", unit="pct", dspark="on", counter="boot_banner",
+        notes=f'KV caches {s31["boot_banner"]["kv_caches_gb_per_card"]} GB per card; CPU lane '
+              f'{s31["boot_banner"]["cpu_lane"]}; free '
+              f'{s31["boot_banner"]["vram_free_mib_per_card"]} MiB per card', source=SRC31),
+]
+
+for band in soak["decode_bands"]:
+    rows.append(row(R31, "P2-band", CFG31, "decode_concurrency_ratio_pct", str(band["ratio_pct"]),
+                    unit="pct", dspark="on", workload=f"gen_{band['band']}",
+                    notes=f'solo median {band["solo_med"]} (n={band["solo_n"]}) -> concurrent median '
+                          f'{band["dual_med"]} (n={band["dual_n"]})', source=SRC31))
+
 # ------------------------------- wide table -------------------------------
 SWITCHES = {
     "R0": "", "R1": "", "R2": "", "R3": "", "R4": "", "R5": "DS4_FAT_ROWS=128",
@@ -572,8 +689,8 @@ payload = {
     "config_comparison": comparison,
     "caveats": [
         "Not an official leaderboard benchmark; every entry used custom probes.",
-        "All runs are solo and single-turn. No concurrency (--parallel > 1), no multi-turn KV-reuse test, no long-duration stability test.",
-        "Host-specific: a Ryzen 9 9950X3D with dual-channel DDR5-6000 bounds the CPU expert lane. Copy the ordering of the knobs, not the residency or thread numbers.",
+        "Entries before 2026-10-31 are solo, single-turn runs (no --parallel > 1). The 2026-10-31 entry adds a 14h --parallel 2 soak of real agent traffic with a per-request concurrency flag; it still has no --parallel 4, no 1M-window, and no fixed-workload aggregate throughput test.",
+        "Host-specific: a Ryzen 9 9950X3D with dual-channel DDR5-6000 bounds the CPU expert lane, and this board's PCIe link runs at 28.8 GB/s (x8 gen1). Copy the ordering of the knobs, not the residency or thread numbers.",
         "Differences within +/-3% are treated as drift on this host (sequential runs drift up to 20%).",
         "Large context windows are YaRN x16 extrapolation over a native 64K model: 'retrievable' is not 'as sharp as within 64K'.",
         "The 2026-10-27 entry quotes the DSpark on/off matrix from v1.1.20 rather than re-measuring it on v1.1.28; those rows are marked evidence=carried_over.",

@@ -1,0 +1,96 @@
+{
+  "slug": "2026-10-31-v1141-parallel2-concurrency",
+  "title": "Maya-S v1.1.41 with --parallel 2: 14h real agent traffic + controlled smoke",
+  "hardware": {
+    "gpu": "2x NVIDIA RTX PRO 5000 72GB (Blackwell), 73,415 MiB each",
+    "pcie": "engine-measured link 28.8 GB/s per card (x8 gen1 on this board)",
+    "cpu": "AMD Ryzen 9 9950X3D",
+    "ram": "249 GiB DDR5-6000 (dual-channel)",
+    "os": "Ubuntu 24.04, CUDA 13.0"
+  },
+  "engine": {
+    "version": "Project Maya v1.1.41 (self-built, sm_120)",
+    "sha256": "f25394ef43343f77631de72523380f54b5bac22cfdb5a285893f0c4433c2c3e4",
+    "args": "--pack .../Maya-S/maya-ds4 --max-context 524288 --tp 1 --mmap-experts auto --vision on --prefill-chunk 16384 --dspark on --parallel 2",
+    "env": "DS4_PREFILL_STATS=1 MAYA_DS4_SLOT_KEEP=1 MAYA_DS4_KEEP_THINKING=1 MAYA_DS4_Q8_BATCH=1 MAYA_DS4_PROMPT_SKIP=2",
+    "model_pack": "DeepSeek-V4.1-Flash-1017 Maya-S, mixed IQ2_XXS/IQ2_S/IQ3_S, 2.56 bpw"
+  },
+  "boot_banner": {
+    "residency_cuda0": "5549 of 7680 (72.2%)",
+    "residency_cuda1": "5852 of 8064 (72.5%)",
+    "kv_caches_gb_per_card": "0.59 / 0.55",
+    "cpu_lane": "4343-4358 experts / 47.8-48.0 GB RAM, 16 threads",
+    "vram_free_mib_per_card": "483-563 / 486-562"
+  },
+  "soak": {
+    "window_cst": "2026-10-30 23:53:01 -> 2026-10-31 09:59:04 (14 h 06 min)",
+    "traffic": "real agent sessions routed via a local gateway; two long-context sessions overlapped for most of the window",
+    "requests": 1495,
+    "prompt_tokens_total": 293215158,
+    "gen_tokens_total": 1090436,
+    "cache_hit_request_pct": 93.3,
+    "cache_hit_token_pct": 94.1,
+    "max_prompt_tokens": 478303,
+    "max_prompt_pct_of_window": 91.2,
+    "max_prompt_fresh_read_tps": 1707.9,
+    "max_prompt_then_generated": "7187 tok @ 60.8 tok/s (one other conversation running)",
+    "decode_solo_gen200plus": {"n": 597, "median": 96.7, "p25": 86.6, "p75": 115.3},
+    "decode_concurrent_gen200plus": {"n": 482, "median": 63.5, "p25": 53.3, "p75": 76.2},
+    "decode_concurrency_ratio_pct": 65.7,
+    "decode_bands": [
+      {"band": "50-199", "solo_n": 203, "solo_med": 121.6, "dual_n": 189, "dual_med": 79.9, "ratio_pct": 66},
+      {"band": "200-999", "solo_n": 440, "solo_med": 101.6, "dual_n": 342, "dual_med": 65.8, "ratio_pct": 65},
+      {"band": ">=1000", "solo_n": 157, "solo_med": 88.0, "dual_n": 140, "dual_med": 58.4, "ratio_pct": 66}
+    ],
+    "decode_band_under50_note": "gen<50 band shows 120.5 solo vs 31.0 concurrent; short generations are dominated by draft-window and step-interleave effects, recorded but not quoted as a rate",
+    "prefill_solo_fresh20kplus": {"n": 45, "median": 3596, "p25": 3353, "p75": 3669},
+    "prefill_concurrent_fresh20kplus": {"n": 33, "median": 3361, "delta_pct": -6.6},
+    "prefill_curve_solo": [
+      {"bucket": "50-100K", "n": 14, "median": 3687.2},
+      {"bucket": "100-150K", "n": 18, "median": 3609.7},
+      {"bucket": "150-200K", "n": 2, "median": 3407.2},
+      {"bucket": "200-250K", "n": 2, "median": 3224.8},
+      {"bucket": "300-350K", "n": 5, "median": 2948.7},
+      {"bucket": "350-400K", "n": 2, "median": 2915.8},
+      {"bucket": "450-500K", "n": 1, "median": 2720.4, "evidence": "single_point_not_benchmark"}
+    ],
+    "draft_acceptance_all_pct": 76.3,
+    "draft_acceptance_solo_pct": 75.2,
+    "draft_acceptance_concurrent_pct": 77.7,
+    "crash_words_window_ring_unspecified_launch_fatal_segfault": 0
+  },
+  "smoke_controlled": {
+    "window_cst": "2026-10-30 23:24-23:30",
+    "first_fresh_prompt_after_boot": {"tokens": 24528, "read_tps": 1730.4, "read_s": 14.2},
+    "solo_short_answer_decode": 57.55,
+    "two_concurrent_identical_probes": {"a_tps": 53.67, "b_tps": 56.80, "pct_of_solo": "93-99%", "draft_acceptance_pct": [82.6, 84.6]},
+    "two_fresh_42k_reads_concurrent": {"a_tps": 2106.4, "b_tps": 1335.6, "solo_pair_reference": 2075.5, "evidence": "single_point_not_benchmark"},
+    "cold_vs_warm_note": "first fresh 42K reads right after boot measured 1,336-2,106 tok/s vs the warm soak median 3,538 at the same size; 1.1.41 #612 improves first-read vs 1.1.40, but we did not A/B the versions"
+  },
+  "official_comparison": {
+    "claim": "v1.1.36/1.1.37 release notes: DSpark draft batching under --parallel, ~1.1x aggregate on two lanes (3x V100); per-lane cost around 78% in the community-reported shape",
+    "ours_controlled_probe": "93-99% per lane (identical tiny prompts, both lanes idle otherwise)",
+    "ours_real_traffic": "66% per lane (median, generation >=200 tokens, prefill-interleaved agent traffic)",
+    "reading": "both sit within the official order of magnitude; the real-traffic figure is the one to copy into planning"
+  },
+  "limitations": [
+    "L1 soak is observational real traffic, not a scheduled benchmark: solo/concurrent split comes from the engine's own 'conversations running' field; concurrent-lane requests skew toward the two heavy long-context sessions.",
+    "L2 all rates are engine-log counters (prompt N = reused + read in X ms; generated in Y ms). API wall-clock differs up to ~30% and is never mixed in.",
+    "L3 512K window only (max observed 478,303 tokens = 91.2%); no 1M test, no --parallel 4.",
+    "L4 two-lane aggregate capacity is inferred as ~1.3x a single lane from the measured per-lane medians; we did not run a fixed-workload throughput benchmark.",
+    "L5 PCIe link on this board runs at 28.8 GB/s (x8 gen1); CPU-lane traffic is heavier than a full-width link, which mainly costs prefill depth.",
+    "L6 engine was stopped at 09:59 for a GPU handoff, so the soak end is an operational stop, not a timeout."
+  ],
+  "sources": {
+    "requests_csv": "raw/maya-1141-requests-all.csv",
+    "run_excerpts": [
+      "raw/maya-1141-run1-excerpt.txt",
+      "raw/maya-1141-run2-excerpt.txt",
+      "raw/maya-1141-run3-excerpt.txt",
+      "raw/maya-1141-run4-excerpt.txt",
+      "raw/maya-1141-run5-excerpt.txt",
+      "raw/maya-1141-run6-excerpt.txt"
+    ],
+    "config": "raw/maya-ds4-par2-1141-config.json"
+  }
+}
